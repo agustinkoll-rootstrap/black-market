@@ -1,3 +1,5 @@
+import Dependencies.Versions.COMPOSE
+
 plugins {
     with(Dependencies.Plugins) {
         id(ANDROID_APP)
@@ -40,6 +42,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        compose = true
     }
 
     compileOptions {
@@ -95,6 +98,19 @@ android {
             buildConfigField("String", "SECURE_FILE_NAME", "\"appPreferences\"")
         }
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.1"
+    }
+    defaultConfig {
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+    }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 val ktlint: Configuration by configurations.creating
 
@@ -102,6 +118,17 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":usecases"))
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_ui_version"]}")
+    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_ui_version"]}")
+    implementation("androidx.compose.material:material:1.1.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_ui_version"]}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_ui_version"]}")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["compose_ui_version"]}")
 
     with(Dependencies.Android) {
         implementation(APP_COMPAT)
@@ -119,6 +146,20 @@ dependencies {
         implementation(NAVIGATION_UI)
         implementation(RECYCLERVIEW)
         implementation(WORK_RUNTIME)
+    }
+
+    with(Dependencies.JetpackCompose){
+        implementation(compose_compiler)
+        implementation(compose_ui)
+        implementation(compose_tooling)
+        implementation(compose_tooling_preview)
+        implementation(compose_foundation)
+        implementation(compose_foundation_layout)
+        implementation(compose_material)
+        implementation(compose_runtime)
+        implementation(compose_navigation)
+        implementation(compose_icons)
+        implementation(compose_coil)
     }
 
     with(Dependencies.Common) {

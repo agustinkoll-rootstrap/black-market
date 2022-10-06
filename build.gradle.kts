@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    val compose_ui_version by extra("1.1.1")
     repositories {
         gradlePluginPortal()
         google()
@@ -8,6 +9,7 @@ buildscript {
     }
 
     dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
         with(Dependencies.ClassPaths) {
             classpath(ANDROID_GRADLE_PLUGIN)
             classpath(KOTLIN_GRADLE_PLUGIN)

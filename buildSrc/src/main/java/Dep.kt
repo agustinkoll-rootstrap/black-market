@@ -4,15 +4,19 @@ object Dependencies {
         const val CORE = "androidx.core:core-ktx:${Versions.CORE}"
         const val CONSTRAINT_LAYOUT =
             "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
-        const val LEGACY_SUPPORT_V4 = "androidx.legacy:legacy-support-v4:${Versions.LEGACY_SUPPORT_V4}"
+        const val LEGACY_SUPPORT_V4 =
+            "androidx.legacy:legacy-support-v4:${Versions.LEGACY_SUPPORT_V4}"
         const val PREFERENCE = "androidx.preference:preference-ktx:${Versions.PREFERENCE}"
         const val RECYCLERVIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLERVIEW}"
         const val WORK_RUNTIME = "androidx.work:work-runtime-ktx:${Versions.WORK_RUNTIME}"
 
         // Lifecycle
-        const val LIFECYCLE_COMMON = "android.arch.lifecycle:common-java8:${Versions.LIFECYCLE_COMMON}"
-        const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
-        const val LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
+        const val LIFECYCLE_COMMON =
+            "android.arch.lifecycle:common-java8:${Versions.LIFECYCLE_COMMON}"
+        const val LIFECYCLE_RUNTIME =
+            "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
+        const val LIFECYCLE_LIVEDATA =
+            "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
         const val LIFECYCLE_EXTENSIONS =
             "androidx.lifecycle:lifecycle-extensions:${Versions.LIFECYCLE_EXTENSION}"
         const val LIFECYCLE_VIEW_MODEL =
@@ -25,16 +29,18 @@ object Dependencies {
 
         // Room
         const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM}"
-
     }
 
     object Common {
         // Image
         const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+
         // MixPanel
         const val MIX_PANEL = "com.mixpanel.android:mixpanel-android:${Versions.MIX_PANEL}"
+
         // Events
         const val OTTO = "com.squareup:otto:${Versions.OTTO}"
+
         // Security crypto
         const val SECURITY_CRYPTO = "androidx.security:security-crypto:${Versions.SECURITY_CRYPTO}"
     }
@@ -75,8 +81,10 @@ object Dependencies {
         const val RETROFIT_GSON_CONVERTER =
             "com.squareup.retrofit2:converter-gson:${Versions.CONVERTER_GSON}"
         const val MOSHI = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
-        const val CONVERTER_MOSHI = "com.squareup.retrofit2:converter-moshi:${Versions.CONVERTER_MOSHI}"
-        const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
+        const val CONVERTER_MOSHI =
+            "com.squareup.retrofit2:converter-moshi:${Versions.CONVERTER_MOSHI}"
+        const val LOGGING_INTERCEPTOR =
+            "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
         const val OKHTTP = "com.squareup.okhttp3:okhttp:${Versions.OKHTTP}"
     }
 
@@ -105,10 +113,31 @@ object Dependencies {
     }
 
     object ClassPaths {
-        const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}"
-        const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
+        const val ANDROID_GRADLE_PLUGIN =
+            "com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}"
+        const val KOTLIN_GRADLE_PLUGIN =
+            "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
         const val GMS = "com.google.gms:google-services:${Versions.GOOGLE_SERVICES}"
-        const val FIREBASE_CRASHLYTICS_GRADLE = "com.google.firebase:firebase-crashlytics-gradle:${Versions.FIREBASE_CRASHLYTICS_GRADLE}"
+        const val FIREBASE_CRASHLYTICS_GRADLE =
+            "com.google.firebase:firebase-crashlytics-gradle:${Versions.FIREBASE_CRASHLYTICS_GRADLE}"
+    }
+
+    object JetpackCompose {
+        const val compose_compiler =
+            "androidx.compose.compiler:compiler:${Versions.COMPOSE_COMPILER}"
+        const val compose_ui = "androidx.compose.ui:ui:${Versions.COMPOSE}"
+        const val compose_tooling = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE_TOOLING}"
+        const val compose_tooling_preview =
+            "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+        const val compose_foundation = "androidx.compose.foundation:foundation:${Versions.COMPOSE}"
+        const val compose_foundation_layout =
+            "androidx.compose.foundation:foundation-layout:${Versions.COMPOSE}"
+        const val compose_material = "androidx.compose.material:material:${Versions.COMPOSE}"
+        const val compose_runtime = "androidx.compose.runtime:runtime:${Versions.COMPOSE}"
+        const val compose_navigation = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
+        const val compose_icons =
+            "androidx.compose.material:material-icons-extended:${Versions.COMPOSE}"
+        const val compose_coil = "io.coil-kt:coil-compose:${Versions.COMPOSE_COIL}"
     }
 
     object Versions {
@@ -152,14 +181,21 @@ object Dependencies {
         const val SECURITY_CRYPTO = "1.1.0-alpha03"
         const val TEST_RUNNER = "1.4.0"
         const val UI_AUTOMATOR = "2.2.0"
-        const val WORK_RUNTIME  = "2.7.0"
+        const val WORK_RUNTIME = "2.7.0"
+
+        // Compose
+        const val COMPOSE = "1.3.0-beta03"
+        const val COMPOSE_COMPILER = "1.3.0"
+        const val COMPOSE_NAVIGATION = "2.5.0"
+        const val COMPOSE_TOOLING = "1.3.0-beta03"
+        const val COMPOSE_COIL = "2.0.0-rc01"
     }
 
     object ConfigData {
-        const val COMPILE_SDK_VERSION = 32
+        const val COMPILE_SDK_VERSION = 33
         const val BUILD_TOOLS_VERSION = "31.0.0"
         const val MIN_SDK_VERSION = 23
-        const val TARGET_SDK_VERSION = 32
+        const val TARGET_SDK_VERSION = 33
         const val VERSION_CODE = 43
         const val VERSION_NAME = "1.0"
     }
