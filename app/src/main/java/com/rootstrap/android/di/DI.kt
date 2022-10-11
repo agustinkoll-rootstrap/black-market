@@ -73,6 +73,4 @@ val dataModule = module {
     single<SessionManager> { SessionManagerImpl(get()) }
 }
 
-private val scopesModule = module {
-
-}
+private val scopesModule = module {}

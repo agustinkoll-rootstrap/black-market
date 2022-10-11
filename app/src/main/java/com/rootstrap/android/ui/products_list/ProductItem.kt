@@ -61,10 +61,11 @@ fun ProductItem(
         }
 
         Divider(
-            Modifier
+            modifier = Modifier
                 .height(1.dp)
                 .padding(horizontal = 16.dp)
-                .fillMaxWidth(), color = Color.LightGray
+                .fillMaxWidth(),
+            color = Color.LightGray
         )
     }
 }
