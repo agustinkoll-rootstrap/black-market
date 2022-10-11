@@ -4,12 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.rootstrap.android.BuildConfig
-import com.rootstrap.android.ui.login.SignInActivity
-import com.rootstrap.android.ui.login.SignInActivityViewModel
-import com.rootstrap.android.ui.login.SignUpActivity
-import com.rootstrap.android.ui.login.SignUpActivityViewModel
-import com.rootstrap.android.ui.profile.ProfileActivity
-import com.rootstrap.android.ui.profile.ProfileActivityViewModel
+import com.rootstrap.android.ui.products_list.ProductListViewModel
 import com.rootstrap.android.util.dispatcher.AppDispatcherProvider
 import com.rootstrap.android.util.dispatcher.DispatcherProvider
 import com.rootstrap.data.api.ApiProvider
@@ -20,8 +15,10 @@ import com.rootstrap.data.api.interceptors.HeadersInterceptor
 import com.rootstrap.data.api.interceptors.ResponseInterceptor
 import com.rootstrap.data.managers.session.SessionManager
 import com.rootstrap.data.managers.session.SessionManagerImpl
+import com.rootstrap.data.repository.ProductRepository
 import com.rootstrap.data.repository.UserRepository
 import com.rootstrap.data.util.Prefs
+import com.rootstrap.usecases.GetProducts
 import com.rootstrap.usecases.SignIn
 import com.rootstrap.usecases.SignOut
 import com.rootstrap.usecases.SignUp
@@ -52,10 +49,8 @@ val appModule = module {
     single { SignUp(get()) }
     single { SignIn(get()) }
     single { SignOut(get()) }
-
-    viewModel { SignUpActivityViewModel(get(), get(), get()) }
-    viewModel { SignInActivityViewModel(get(), get(), get()) }
-    viewModel { ProfileActivityViewModel(get(), get(), get()) }
+    single { GetProducts(get()) }
+    viewModel { ProductListViewModel(get()) }
 }
 
 val dataModule = module {
@@ -74,11 +69,10 @@ val dataModule = module {
     single<DispatcherProvider> { AppDispatcherProvider() }
     factory { Prefs(get()) }
     factory { UserRepository(get()) }
+    factory { ProductRepository() }
     single<SessionManager> { SessionManagerImpl(get()) }
 }
 
 private val scopesModule = module {
-    scope<SignUpActivity> {}
-    scope<SignInActivity> {}
-    scope<ProfileActivity> {}
+
 }
