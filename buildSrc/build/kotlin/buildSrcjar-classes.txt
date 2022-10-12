@@ -1,1 +1,0 @@
-/Users/rodrigosoria/Documents/Rootstrap/projects/Android-base/repos/android-base/buildSrc/build/classes/kotlin/main/Libs.class:/Users/rodrigosoria/Documents/Rootstrap/projects/Android-base/repos/android-base/buildSrc/build/classes/kotlin/main/Versions.class
