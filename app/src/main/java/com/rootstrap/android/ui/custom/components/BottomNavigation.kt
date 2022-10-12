@@ -10,7 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.rootstrap.android.ui.compose_navigation.NavigationRoutes
 
 @Composable
-fun BottomNavigationCustom(
+fun BottomNavigationBar(
     navController: NavController,
     items: List<NavigationRoutes>
 ) {
