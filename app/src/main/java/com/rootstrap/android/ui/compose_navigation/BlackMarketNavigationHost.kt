@@ -13,7 +13,7 @@ import com.rootstrap.android.ui.shopping_cart.ShoppingCart
 fun BlackMarketNavigationHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = NavigationRoutes.ProductsList.route
+        startDestination = NavigationRoutes.Dashboard.route
     ) {
         composable(NavigationRoutes.ProductsList.route) {
             ProductsList()

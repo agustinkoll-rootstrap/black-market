@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rootstrap.android.ui.compose_navigation.BlackMarketNavigationHost
 import com.rootstrap.android.ui.compose_navigation.NavigationRoutes
 import com.rootstrap.android.ui.custom.components.BottomNavigationCustom
+import com.rootstrap.android.ui.custom.components.TopBar
 import com.rootstrap.android.ui.ui.theme.AndroidBaseTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,6 +31,7 @@ class MainActivity : ComponentActivity() {
             val navHostController = rememberNavController()
             SetContentOnSurface {
                 Scaffold(
+                    topBar = { TopBar() },
                     bottomBar = {
                         BottomNavigationCustom(
                             navController = navHostController,
