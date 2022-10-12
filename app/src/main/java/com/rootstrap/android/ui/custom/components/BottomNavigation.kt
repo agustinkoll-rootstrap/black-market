@@ -46,8 +46,8 @@ fun RowScope.BottomNavigationItem(
             )
         },
         label = { Text(text = item.title) },
-        selectedContentColor = MaterialTheme.colors.secondary,
-        unselectedContentColor = MaterialTheme.colors.onPrimary,
+        selectedContentColor = MaterialTheme.colors.onPrimary,
+        unselectedContentColor = MaterialTheme.colors.onPrimary.copy(alpha = ContentAlpha.medium),
         alwaysShowLabel = true,
         selected = currentRoute == item.route,
         onClick = {
