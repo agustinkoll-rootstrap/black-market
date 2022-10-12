@@ -15,6 +15,7 @@ private val LightColorPalette = lightColors(
     primary = Color.Black,
     background = BackgroundGray,
     onPrimary = Color.White,
+    secondary = Color.LightGray,
 )
 
 @Composable
