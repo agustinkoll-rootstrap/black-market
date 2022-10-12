@@ -34,7 +34,8 @@ fun BottomNavigationCustom(
 @Composable
 fun RowScope.BottomNavigationItem(
     item: NavigationRoutes,
-    icon: Int, currentRoute: String?,
+    icon: Int,
+    currentRoute: String?,
     navController: NavController
 ) {
     BottomNavigationItem(
