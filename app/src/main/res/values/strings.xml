@@ -26,4 +26,9 @@
     <string name="welcome_message">Hi %1$s!</string>
     <string name="sign_out">Sign Out</string>
     <string name="default_error">Oops! Network error</string>
+    <string name="price">$%s</string>
+    <string name="txt_add_to_cart">Add to cart</string>
+    <string name="txt_restored">Restored</string>
+    <string name="txt_title">Black market</string>
+    <string name="app_logo_content_logo">app logo</string>
 </resources>
