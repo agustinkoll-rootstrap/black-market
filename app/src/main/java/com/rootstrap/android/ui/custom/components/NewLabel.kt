@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rootstrap.android.R
 import com.rootstrap.android.ui.ui.theme.NewLabelBlue
+import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
 @Composable
 fun NewLabel() {
@@ -22,7 +23,7 @@ fun NewLabel() {
         modifier = Modifier
             .clip(shape = RoundedCornerShape(10))
             .background(NewLabelBlue)
-            .width(70.dp)
+            .width(TagLabelWidth)
     ) {
         Text(
             text = stringResource(R.string.txt_new),

@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rootstrap.android.R
 import com.rootstrap.android.ui.ui.theme.RestoredGreen
+import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
 @Composable
 fun RestoredLabel() {
@@ -22,7 +23,7 @@ fun RestoredLabel() {
         modifier = Modifier
             .clip(shape = RoundedCornerShape(10))
             .background(RestoredGreen)
-            .width(70.dp)
+            .width(TagLabelWidth)
     ) {
         Text(
             text = stringResource(R.string.txt_restored),

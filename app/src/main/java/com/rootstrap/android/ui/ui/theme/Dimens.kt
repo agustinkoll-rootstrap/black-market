@@ -5,6 +5,7 @@ import androidx.compose.ui.unit.dp
 val ProductItemDashboardWidth = 136.dp
 val ProductItemDashboardHeight = 120.dp
 val DividerHeight = 1.dp
+val TagLabelWidth = 70.dp
 
 // standard Paddings
 val PaddingQuarter = 4.dp
