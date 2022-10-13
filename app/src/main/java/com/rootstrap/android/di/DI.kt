@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.rootstrap.android.BuildConfig
+import com.rootstrap.android.ui.dashboard.DashboardViewModel
 import com.rootstrap.android.ui.products_list.ProductListViewModel
 import com.rootstrap.android.util.dispatcher.AppDispatcherProvider
 import com.rootstrap.android.util.dispatcher.DispatcherProvider
@@ -51,6 +52,7 @@ val appModule = module {
     single { SignOut(get()) }
     single { GetProducts(get()) }
     viewModel { ProductListViewModel(get()) }
+    viewModel { DashboardViewModel(get()) }
 }
 
 val dataModule = module {

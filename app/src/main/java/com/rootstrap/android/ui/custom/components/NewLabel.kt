@@ -14,19 +14,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rootstrap.android.R
-import com.rootstrap.android.ui.ui.theme.RestoredGreen
+import com.rootstrap.android.ui.ui.theme.NewLabelBlue
 
 @Composable
-fun RestoredLabel() {
+fun NewLabel() {
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(10))
-            .background(RestoredGreen)
+            .background(NewLabelBlue)
             .width(70.dp)
     ) {
         Text(
-            text = stringResource(R.string.txt_restored),
-            modifier = Modifier.padding(2.dp).align(Alignment.Center),
+            text = stringResource(R.string.txt_new),
+            modifier = Modifier
+                .padding(2.dp)
+                .align(Alignment.Center),
             color = Color.White
         )
     }

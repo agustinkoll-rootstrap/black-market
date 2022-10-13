@@ -7,6 +7,7 @@ plugins {
         kotlin(KAPT)
         id(GOOGLE_SERVICES)
         id(CRASHLYTICS)
+        id (SONAR) version Dependencies.Versions.SONAR
     }
 }
 

@@ -19,7 +19,7 @@ class ProductRepository {
                 name = "Chair 2",
                 price = "50",
                 imageUrl = "https://via.placeholder.com/300.png",
-                isRestored = false
+                isRestored = true
             )
         )
     }

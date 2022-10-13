@@ -24,3 +24,9 @@ val Typography = Typography(
         letterSpacing = 0.15.sp
     )
 )
+
+val BoldBody2 = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 14.sp,
+    letterSpacing = 0.25.sp
+)
