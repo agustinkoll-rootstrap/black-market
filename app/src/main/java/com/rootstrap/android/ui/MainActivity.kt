@@ -10,7 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.rootstrap.android.ui.compose_navigation.BlackMarketNavigationHost
+import com.rootstrap.android.ui.compose_navigation.NavigationHost
 import com.rootstrap.android.ui.ui.theme.AndroidBaseTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navHostController = rememberNavController()
             SetContentOnSurface {
-                BlackMarketNavigationHost(navHostController = navHostController)
+                NavigationHost(navHostController = navHostController)
             }
         }
     }

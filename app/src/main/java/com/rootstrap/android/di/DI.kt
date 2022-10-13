@@ -67,9 +67,9 @@ val dataModule = module {
         )
     }
     single<DispatcherProvider> { AppDispatcherProvider() }
-    factory { Prefs(get()) }
-    factory { UserRepository(get()) }
-    factory { ProductRepository() }
+    single { Prefs(get()) }
+    single { UserRepository(get()) }
+    single { ProductRepository() }
     single<SessionManager> { SessionManagerImpl(get()) }
 }
 

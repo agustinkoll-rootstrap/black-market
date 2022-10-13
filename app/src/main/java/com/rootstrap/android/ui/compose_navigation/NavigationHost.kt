@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.rootstrap.android.ui.products_list.ProductsList
 
 @Composable
-fun BlackMarketNavigationHost(navHostController: NavHostController) {
+fun NavigationHost(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
         startDestination = NavigationRoutes.ProductsList.route
