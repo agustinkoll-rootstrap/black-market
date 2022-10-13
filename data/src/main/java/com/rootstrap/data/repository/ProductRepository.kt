@@ -15,9 +15,17 @@ class ProductRepository {
             ),
             Product(
                 description = "",
-                id = 1,
+                id = 2,
                 name = "Chair 2",
                 price = "50",
+                imageUrl = "https://via.placeholder.com/300.png",
+                isRestored = true
+            ),
+            Product(
+                description = "",
+                id = 3,
+                name = "Chair 3",
+                price = "45",
                 imageUrl = "https://via.placeholder.com/300.png",
                 isRestored = true
             )

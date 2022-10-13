@@ -1,9 +1,20 @@
 package com.rootstrap.android.ui.dashboard
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -18,7 +30,12 @@ import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
 import com.rootstrap.android.ui.custom.components.NewLabel
 import com.rootstrap.android.ui.custom.components.RestoredLabel
-import com.rootstrap.android.ui.ui.theme.*
+import com.rootstrap.android.ui.ui.theme.BoldBody2
+import com.rootstrap.android.ui.ui.theme.DividerHeight
+import com.rootstrap.android.ui.ui.theme.PaddingHalf
+import com.rootstrap.android.ui.ui.theme.PaddingThreeQuarters
+import com.rootstrap.android.ui.ui.theme.ProductItemDashboardHeight
+import com.rootstrap.android.ui.ui.theme.ProductItemDashboardWidth
 import com.rootstrap.domain.Product
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -56,41 +73,50 @@ fun DashboardProductItem(
                 color = Color.LightGray
             )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = PaddingThreeQuarters)
-                    .padding(horizontal = PaddingHalf),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = product.price,
-                    style = BoldBody2
-                )
+            FirstRow(product)
+            SecondRow(product, addToFavourites)
+        }
+    }
+}
 
-                if (product.isRestored) {
-                    RestoredLabel()
-                } else {
-                    NewLabel()
-                }
-            }
+@Composable
+fun FirstRow(product: Product) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = PaddingThreeQuarters)
+            .padding(horizontal = PaddingHalf),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = stringResource(id = R.string.price, product.price),
+            style = BoldBody2
+        )
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = PaddingHalf),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = product.name, style = BoldBody2)
+        if (product.isRestored) {
+            RestoredLabel()
+        } else {
+            NewLabel()
+        }
+    }
+}
 
-                IconButton(onClick = { addToFavourites(product) }) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_favorite),
-                        contentDescription = "Add to favourites"
-                    )
-                }
-            }
+@Composable
+fun SecondRow(product: Product, addToFavourites: (Product) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = PaddingHalf),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = product.name, style = BoldBody2)
+
+        IconButton(onClick = { addToFavourites(product) }) {
+            Icon(
+                painter = painterResource(R.drawable.ic_favorite),
+                contentDescription = "Add to favourites"
+            )
         }
     }
 }
