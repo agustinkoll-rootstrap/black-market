@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.rootstrap.android.ui.compose_navigation.NavigationHost
-import com.rootstrap.android.ui.compose_navigation.BlackMarketNavigationHost
 import com.rootstrap.android.ui.compose_navigation.NavigationRoutes
 import com.rootstrap.android.ui.custom.components.BottomNavigationBar
 import com.rootstrap.android.ui.custom.components.TopBar
