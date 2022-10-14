@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.ui.theme.PaddingEightQuarters
 import com.rootstrap.android.ui.ui.theme.RestoredGreen
 import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
@@ -27,7 +28,7 @@ fun RestoredLabel() {
     ) {
         Text(
             text = stringResource(R.string.txt_restored),
-            modifier = Modifier.padding(2.dp).align(Alignment.Center),
+            modifier = Modifier.padding(PaddingEightQuarters).align(Alignment.Center),
             color = Color.White
         )
     }

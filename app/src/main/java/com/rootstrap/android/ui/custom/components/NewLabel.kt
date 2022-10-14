@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.rootstrap.android.R
 import com.rootstrap.android.ui.ui.theme.NewLabelBlue
+import com.rootstrap.android.ui.ui.theme.PaddingEightQuarters
 import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
 @Composable
@@ -28,7 +28,7 @@ fun NewLabel() {
         Text(
             text = stringResource(R.string.txt_new),
             modifier = Modifier
-                .padding(2.dp)
+                .padding(PaddingEightQuarters)
                 .align(Alignment.Center),
             color = Color.White
         )

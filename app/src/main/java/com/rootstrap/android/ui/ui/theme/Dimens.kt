@@ -8,6 +8,7 @@ val DividerHeight = 1.dp
 val TagLabelWidth = 70.dp
 
 // standard Paddings
+val PaddingEightQuarters = 2.dp
 val PaddingQuarter = 4.dp
 val PaddingHalf = 8.dp
 val PaddingThreeQuarters = 12.dp
