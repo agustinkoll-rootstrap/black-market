@@ -9,7 +9,9 @@ import com.rootstrap.usecases.GetProducts
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DashboardViewModel(private val getProducts: GetProducts) : BaseViewModel<DashBoardUiState>(
+class DashboardViewModel(
+    private val getProducts: GetProducts,
+) : BaseViewModel<DashBoardUiState>(
     DashBoardUiState(true, emptyList())
 ) {
     fun load() {

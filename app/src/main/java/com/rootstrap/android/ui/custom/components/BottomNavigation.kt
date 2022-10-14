@@ -49,7 +49,7 @@ fun RowScope.BottomNavigationItem(
         selectedContentColor = MaterialTheme.colors.onPrimary,
         unselectedContentColor = MaterialTheme.colors.onPrimary.copy(alpha = ContentAlpha.medium),
         alwaysShowLabel = true,
-        selected = currentRoute == item.route,
+        selected = currentRoute?.contains(item.route) ?: false,
         onClick = {
             navController.navigate(item.route) {
 

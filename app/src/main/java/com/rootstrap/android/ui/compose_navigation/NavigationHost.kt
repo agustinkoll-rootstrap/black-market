@@ -19,7 +19,7 @@ fun NavigationHost(navHostController: NavHostController) {
             ProductsList()
         }
         composable(NavigationRoutes.Dashboard.route) {
-            Dashboard()
+            Dashboard(navHostController)
         }
         composable(NavigationRoutes.Favourite.route) {
             Favourite()
