@@ -1,15 +1,16 @@
 package com.rootstrap.android.ui.compose_navigation
 
+import androidx.annotation.DrawableRes
 import com.rootstrap.android.R
 
 sealed class NavigationRoutes(
     val route: String,
-    var title: String,
-    var icon: Int?,
+    var title: String = "",
+    @DrawableRes var icon: Int? = null,
 ) {
-    object Login : NavigationRoutes(route = "login", title = "", icon = null)
+    object Login : NavigationRoutes(route = "login")
     object ProductsList :
-        NavigationRoutes("dashboard/products_list", "", null)
+        NavigationRoutes("dashboard/products_list")
 
     object Dashboard : NavigationRoutes("dashboard", "Home", R.drawable.ic_home)
     object ShoppingCart :

@@ -7,6 +7,9 @@ val ProductItemDashboardHeight = 120.dp
 val DividerHeight = 1.dp
 val TagLabelWidth = 70.dp
 
+val elevationNormal = 4.dp
+val roundedCornersRadius = 8.dp
+
 // standard Paddings
 val PaddingEightQuarters = 2.dp
 val PaddingQuarter = 4.dp

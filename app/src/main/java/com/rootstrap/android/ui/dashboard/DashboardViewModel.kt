@@ -26,10 +26,6 @@ class DashboardViewModel(
     fun addToFavourites(product: Product) {
         Log.d("productList", product.name)
     }
-
-    fun openDetail(product: Product) {
-        Log.d("productList", product.name)
-    }
 }
 
 data class DashBoardUiState(

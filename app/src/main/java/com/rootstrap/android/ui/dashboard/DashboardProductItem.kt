@@ -24,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
@@ -36,6 +35,8 @@ import com.rootstrap.android.ui.ui.theme.PaddingHalf
 import com.rootstrap.android.ui.ui.theme.PaddingThreeQuarters
 import com.rootstrap.android.ui.ui.theme.ProductItemDashboardHeight
 import com.rootstrap.android.ui.ui.theme.ProductItemDashboardWidth
+import com.rootstrap.android.ui.ui.theme.elevationNormal
+import com.rootstrap.android.ui.ui.theme.roundedCornersRadius
 import com.rootstrap.domain.Product
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -52,14 +53,14 @@ fun DashboardProductItem(
         modifier = modifier
             .padding(PaddingHalf)
             .width(ProductItemDashboardWidth)
-            .clip(RoundedCornerShape(8.dp)),
-        elevation = 4.dp,
+            .clip(RoundedCornerShape(roundedCornersRadius)),
+        elevation = elevationNormal,
         onClick = { openDetail(product) }
     ) {
         Column {
             Image(
                 painter = painter,
-                contentDescription = "Product image",
+                contentDescription = stringResource(R.string.txt_product_image_description),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()

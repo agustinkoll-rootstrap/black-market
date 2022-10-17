@@ -30,4 +30,6 @@
     <string name="txt_new">New</string>
     <string name="txt_title">Black market</string>
     <string name="app_logo_content_logo">app logo</string>
+    <string name="txt_see_all">See all</string>
+    <string name="txt_product_image_description">Product image</string>
 </resources>

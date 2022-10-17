@@ -14,10 +14,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
 import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.navigateToProductsList
-import com.rootstrap.android.ui.ui.theme.BlueLink
+import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.openProductDetail
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -39,7 +41,7 @@ fun Dashboard(navController: NavHostController) {
                     dashboardViewModel.addToFavourites(it)
                 },
                 openDetail = {
-                    dashboardViewModel.openDetail(it)
+                    openProductDetail(navController, it)
                 }
             )
 
@@ -53,12 +55,12 @@ fun Dashboard(navController: NavHostController) {
 @Composable
 fun ColumnScope.SeeAllButton(onSeeAllButtonClick: () -> Unit) {
     Text(
-        text = "See all",
+        text = stringResource(R.string.txt_see_all),
         modifier = Modifier
             .padding(top = PaddingNormal)
             .align(Alignment.CenterHorizontally)
             .clickable { onSeeAllButtonClick() },
         style = MaterialTheme.typography.body1,
-        color = BlueLink,
+        color = MaterialTheme.colors.secondaryVariant,
     )
 }
