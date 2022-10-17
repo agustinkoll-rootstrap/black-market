@@ -40,4 +40,7 @@
     <string name="txt_paypal">Paypal</string>
     <string name="txt_crypto">Crypto</string>
     <string name="txt_payment_methods">Payment methods</string>
+    <string name="txt_shipment_title">We upgraded our shipments many levels up.</string>
+    <string name="txt_shipment_powered_by">Powered by</string>
+    <string name="txt_shipment_fedex">FedEx</string>
 </resources>

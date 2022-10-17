@@ -13,6 +13,7 @@ val ElevationNormal = 4.dp
 val RoundedCornersRadiusNormal = 8.dp
 val PaymentMethodIconWidth = 30.dp
 val PaymentMethodIconHeight = 20.dp
+val ShipmentHeight = 170.dp
 
 // standard Paddings
 val PaddingEightQuarters = 2.dp
