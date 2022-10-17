@@ -32,4 +32,12 @@
     <string name="app_logo_content_logo">app logo</string>
     <string name="txt_see_all">See all</string>
     <string name="txt_product_image_description">Product image</string>
+    <string name="txt_publicity_image_description">Publicity image</string>
+    <string name="txt_sale_banner_title">Check out our new and restored furniture</string>
+    <string name="txt_sale_banner_description">Shop today and get a 10% discount!</string>
+    <string name="txt_payment_method_description">Payment method icon</string>
+    <string name="txt_credit">Credit</string>
+    <string name="txt_paypal">Paypal</string>
+    <string name="txt_crypto">Crypto</string>
+    <string name="txt_payment_methods">Payment methods</string>
 </resources>

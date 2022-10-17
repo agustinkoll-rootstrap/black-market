@@ -48,6 +48,10 @@ fun Dashboard(navController: NavHostController) {
             SeeAllButton {
                 navigateToProductsList(navController)
             }
+
+            DashboardSaleBanner()
+
+            DashboardPaymentsMethodsBanner()
         }
     }
 }

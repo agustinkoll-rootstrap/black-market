@@ -139,6 +139,8 @@ object Dependencies {
         const val compose_icons =
             "androidx.compose.material:material-icons-extended:${Versions.COMPOSE}"
         const val compose_coil = "io.coil-kt:coil-compose:${Versions.COMPOSE_COIL}"
+        const val compose_constraint =
+            "androidx.constraintlayout:constraintlayout-compose:${Versions.COMPOSE_CONSTRAINT}"
     }
 
     object Versions {
@@ -191,6 +193,7 @@ object Dependencies {
         const val COMPOSE_NAVIGATION = "2.5.0"
         const val COMPOSE_TOOLING = "1.3.0-beta03"
         const val COMPOSE_COIL = "2.0.0-rc01"
+        const val COMPOSE_CONSTRAINT = "1.0.1"
     }
 
     object ConfigData {

@@ -36,7 +36,7 @@ import com.rootstrap.android.ui.ui.theme.PaddingThreeQuarters
 import com.rootstrap.android.ui.ui.theme.ProductItemDashboardHeight
 import com.rootstrap.android.ui.ui.theme.ProductItemDashboardWidth
 import com.rootstrap.android.ui.ui.theme.elevationNormal
-import com.rootstrap.android.ui.ui.theme.roundedCornersRadius
+import com.rootstrap.android.ui.ui.theme.roundedCornersRadiusNormal
 import com.rootstrap.domain.Product
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -53,7 +53,7 @@ fun DashboardProductItem(
         modifier = modifier
             .padding(PaddingHalf)
             .width(ProductItemDashboardWidth)
-            .clip(RoundedCornerShape(roundedCornersRadius)),
+            .clip(RoundedCornerShape(roundedCornersRadiusNormal)),
         elevation = elevationNormal,
         onClick = { openDetail(product) }
     ) {

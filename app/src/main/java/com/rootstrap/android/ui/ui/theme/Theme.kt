@@ -18,7 +18,9 @@ private val LightColorPalette = lightColors(
     background = BackgroundGray,
     onPrimary = Color.White,
     secondary = Color.LightGray,
-    secondaryVariant = BlueLink
+    secondaryVariant = BlueLink,
+    surface = Color.White,
+    onSurface = Color.Black
 )
 
 @Composable
