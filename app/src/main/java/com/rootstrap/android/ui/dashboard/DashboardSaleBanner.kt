@@ -26,7 +26,7 @@ import com.rootstrap.android.ui.ui.theme.PaddingQuarter
 import com.rootstrap.android.ui.ui.theme.PaddingSixQuarters
 import com.rootstrap.android.ui.ui.theme.PublicityBannerHeight
 import com.rootstrap.android.ui.ui.theme.PublicityBannerWidth
-import com.rootstrap.android.ui.ui.theme.roundedCornersRadiusNormal
+import com.rootstrap.android.ui.ui.theme.RoundedCornersRadiusNormal
 
 @Composable
 fun DashboardSaleBanner() {
@@ -35,7 +35,7 @@ fun DashboardSaleBanner() {
             .fillMaxWidth()
             .padding(horizontal = PaddingNormal)
             .padding(top = PaddingSixQuarters)
-            .clip(RoundedCornerShape(roundedCornersRadiusNormal))
+            .clip(RoundedCornerShape(RoundedCornersRadiusNormal))
             .height(PublicityBannerHeight)
             .background(MaterialTheme.colors.primary),
     ) {

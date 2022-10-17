@@ -5,8 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -26,6 +28,8 @@ import com.rootstrap.android.ui.ui.theme.PaddingDouble
 import com.rootstrap.android.ui.ui.theme.PaddingFiveQuarters
 import com.rootstrap.android.ui.ui.theme.PaddingSixQuarters
 import com.rootstrap.android.ui.ui.theme.PaddingTenQuarters
+import com.rootstrap.android.ui.ui.theme.PaymentMethodIconHeight
+import com.rootstrap.android.ui.ui.theme.PaymentMethodIconWidth
 
 @Composable
 fun DashboardPaymentsMethodsBanner() {
@@ -51,11 +55,30 @@ fun DashboardPaymentsMethodsBanner() {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            PaymentMethodItem(icon = R.drawable.ic_credit_card, name = stringResource(R.string.txt_credit))
-            Divider(Modifier.width(1.dp), color = Color.LightGray)
-            PaymentMethodItem(icon = R.drawable.ic_paypal, name = stringResource(R.string.txt_paypal))
-            Divider(Modifier.width(1.dp), color = Color.LightGray)
-            PaymentMethodItem(icon = R.drawable.ic_crypto, name = stringResource(R.string.txt_crypto))
+            PaymentMethodItem(
+                icon = R.drawable.ic_credit_card,
+                name = stringResource(R.string.txt_credit)
+            )
+            Divider(
+                modifier = Modifier
+                    .width(1.dp)
+                    .fillMaxHeight(),
+                color = Color.LightGray
+            )
+            PaymentMethodItem(
+                icon = R.drawable.ic_paypal,
+                name = stringResource(R.string.txt_paypal)
+            )
+            Divider(
+                modifier = Modifier
+                    .width(1.dp)
+                    .fillMaxHeight(),
+                color = Color.LightGray
+            )
+            PaymentMethodItem(
+                icon = R.drawable.ic_crypto,
+                name = stringResource(R.string.txt_crypto)
+            )
         }
     }
 }
@@ -71,10 +94,12 @@ fun PaymentMethodItem(@DrawableRes icon: Int, name: String) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = stringResource(R.string.txt_payment_method_description),
-            modifier = Modifier.constrainAs(paymentIcon) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
+            modifier = Modifier
+                .size(width = PaymentMethodIconWidth, height = PaymentMethodIconHeight)
+                .constrainAs(paymentIcon) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }
         )
 
         Text(

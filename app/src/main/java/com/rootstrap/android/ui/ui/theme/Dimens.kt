@@ -9,8 +9,10 @@ val TagLabelWidth = 70.dp
 val PublicityBannerHeight = 140.dp
 val PublicityBannerWidth = 160.dp
 
-val elevationNormal = 4.dp
-val roundedCornersRadiusNormal = 8.dp
+val ElevationNormal = 4.dp
+val RoundedCornersRadiusNormal = 8.dp
+val PaymentMethodIconWidth = 30.dp
+val PaymentMethodIconHeight = 20.dp
 
 // standard Paddings
 val PaddingEightQuarters = 2.dp
