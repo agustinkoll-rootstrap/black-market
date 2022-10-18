@@ -21,9 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.ui.theme.DividerHeight
 import com.rootstrap.android.ui.ui.theme.PaddingDouble
 import com.rootstrap.android.ui.ui.theme.PaddingFiveQuarters
 import com.rootstrap.android.ui.ui.theme.PaddingSixQuarters
@@ -61,7 +61,7 @@ fun DashboardPaymentsMethodsBanner() {
             )
             Divider(
                 modifier = Modifier
-                    .width(1.dp)
+                    .width(DividerHeight)
                     .fillMaxHeight(),
                 color = Color.LightGray
             )
@@ -71,7 +71,7 @@ fun DashboardPaymentsMethodsBanner() {
             )
             Divider(
                 modifier = Modifier
-                    .width(1.dp)
+                    .width(DividerHeight)
                     .fillMaxHeight(),
                 color = Color.LightGray
             )

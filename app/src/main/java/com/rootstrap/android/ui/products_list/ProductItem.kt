@@ -28,6 +28,8 @@ import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
 import com.rootstrap.android.ui.custom.components.PrimaryButton
 import com.rootstrap.android.ui.custom.components.RestoredLabel
+import com.rootstrap.android.ui.ui.theme.DividerHeight
+import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import com.rootstrap.domain.Product
 
 @Composable
@@ -62,8 +64,8 @@ fun ProductItem(
 
         Divider(
             modifier = Modifier
-                .height(1.dp)
-                .padding(horizontal = 16.dp)
+                .height(DividerHeight)
+                .padding(horizontal = PaddingNormal)
                 .fillMaxWidth(),
             color = Color.LightGray
         )
