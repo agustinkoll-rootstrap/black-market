@@ -13,20 +13,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.ui.theme.NewLabelBlue
 import com.rootstrap.android.ui.ui.theme.PaddingEightQuarters
-import com.rootstrap.android.ui.ui.theme.RestoredGreen
 import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
 @Composable
-fun RestoredLabel() {
+fun NewLabel() {
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(10))
-            .background(RestoredGreen)
+            .background(NewLabelBlue)
             .width(TagLabelWidth)
     ) {
         Text(
-            text = stringResource(R.string.txt_restored),
+            text = stringResource(R.string.txt_new),
             modifier = Modifier
                 .padding(PaddingEightQuarters)
                 .align(Alignment.Center),

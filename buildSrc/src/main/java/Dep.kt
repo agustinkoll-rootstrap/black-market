@@ -134,7 +134,8 @@ object Dependencies {
             "androidx.compose.foundation:foundation-layout:${Versions.COMPOSE}"
         const val compose_material = "androidx.compose.material:material:${Versions.COMPOSE}"
         const val compose_runtime = "androidx.compose.runtime:runtime:${Versions.COMPOSE}"
-        const val compose_navigation = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
+        const val compose_navigation =
+            "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
         const val compose_icons =
             "androidx.compose.material:material-icons-extended:${Versions.COMPOSE}"
         const val compose_coil = "io.coil-kt:coil-compose:${Versions.COMPOSE_COIL}"
@@ -182,6 +183,7 @@ object Dependencies {
         const val TEST_RUNNER = "1.4.0"
         const val UI_AUTOMATOR = "2.2.0"
         const val WORK_RUNTIME = "2.7.0"
+        const val SONAR = "3.4.0.2513"
 
         // Compose
         const val COMPOSE = "1.3.0-beta03"
@@ -207,6 +209,7 @@ object Dependencies {
         const val CRASHLYTICS = "com.google.firebase.crashlytics"
         const val GOOGLE_SERVICES = "com.google.gms.google-services"
         const val KAPT = "kapt"
+        const val SONAR = "org.sonarqube"
     }
 }
 
