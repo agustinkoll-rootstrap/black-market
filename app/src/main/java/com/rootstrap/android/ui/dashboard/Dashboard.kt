@@ -22,6 +22,7 @@ import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
 import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.navigateToProductsList
 import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.openProductDetail
+import com.rootstrap.android.ui.ui.theme.LinkTextMedium
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -68,7 +69,7 @@ fun ColumnScope.SeeAllButton(onSeeAllButtonClick: () -> Unit) {
             .padding(top = PaddingNormal)
             .align(Alignment.CenterHorizontally)
             .clickable { onSeeAllButtonClick() },
-        style = MaterialTheme.typography.body1,
+        style = LinkTextMedium,
         color = MaterialTheme.colors.secondaryVariant,
     )
 }

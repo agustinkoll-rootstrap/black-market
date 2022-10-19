@@ -43,4 +43,8 @@
     <string name="txt_shipment_title">We upgraded our shipments many levels up.</string>
     <string name="txt_shipment_powered_by">Powered by</string>
     <string name="txt_shipment_fedex">FedEx</string>
+    <string name="txt_shopping_cart_title">My shopping cart</string>
+    <string name="txt_clear_all">Clear all</string>
+    <string name="txt_total">Total: $%s</string>
+    <string name="txt_go_to_checkout">Go to checkout</string>
 </resources>
