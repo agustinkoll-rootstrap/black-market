@@ -40,17 +40,16 @@ import com.rootstrap.android.ui.ui.theme.DividerHeight
 import com.rootstrap.android.ui.ui.theme.LinkTextSmall
 import com.rootstrap.android.ui.ui.theme.PaddingHalf
 import com.rootstrap.android.ui.ui.theme.RoundedCornersRadiusNormal
-import com.rootstrap.domain.Product
 
 @Composable
 fun ShoppingCartItem(
     modifier: Modifier,
-    shoppingCartItem: ShoppingCartItem,
-    incrementQuantity: (ShoppingCartItem) -> Unit,
-    decrementQuantity: (ShoppingCartItem) -> Unit,
-    removeItem: (ShoppingCartItem) -> Unit,
+    shoppingCartItemModel: ShoppingCartItemModel,
+    incrementQuantity: (ShoppingCartItemModel) -> Unit,
+    decrementQuantity: (ShoppingCartItemModel) -> Unit,
+    removeItem: (ShoppingCartItemModel) -> Unit,
 ) {
-    val painter = rememberAsyncImagePainter(shoppingCartItem.product.imageUrl)
+    val painter = rememberAsyncImagePainter(shoppingCartItemModel.imageUrl)
     Column(
         modifier = modifier
             .border(width = 1.dp, Color.LightGray)
@@ -76,12 +75,12 @@ fun ShoppingCartItem(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(start = 10.dp),
-                shoppingCartItem = shoppingCartItem,
+                shoppingCartItemModel = shoppingCartItemModel,
                 removeItem = removeItem
             )
 
             ProductItemPriceColumn(
-                shoppingCartItem = shoppingCartItem,
+                shoppingCartItemModel = shoppingCartItemModel,
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(1f),
@@ -101,9 +100,9 @@ fun ShoppingCartItem(
 
 @Composable
 fun ProductItemTitleColumn(
-    shoppingCartItem: ShoppingCartItem,
+    shoppingCartItemModel: ShoppingCartItemModel,
     modifier: Modifier,
-    removeItem: (ShoppingCartItem) -> Unit,
+    removeItem: (ShoppingCartItemModel) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -111,13 +110,13 @@ fun ProductItemTitleColumn(
 
         // Title
         Text(
-            text = shoppingCartItem.product.name,
+            text = shoppingCartItemModel.name,
             style = MaterialTheme.typography.subtitle1
         )
 
         Spacer(Modifier.height(PaddingHalf))
 
-        if (shoppingCartItem.product.isRestored) {
+        if (shoppingCartItemModel.isRestored) {
             RestoredLabel()
         } else NewLabel()
 
@@ -129,7 +128,7 @@ fun ProductItemTitleColumn(
                 text = "Remove",
                 style = LinkTextSmall,
                 modifier = Modifier.clickable {
-                    removeItem(shoppingCartItem)
+                    removeItem(shoppingCartItemModel)
                 }
             )
         }
@@ -138,10 +137,10 @@ fun ProductItemTitleColumn(
 
 @Composable
 fun ProductItemPriceColumn(
-    shoppingCartItem: ShoppingCartItem,
+    shoppingCartItemModel: ShoppingCartItemModel,
     modifier: Modifier,
-    incrementQuantity: (ShoppingCartItem) -> Unit,
-    decrementQuantity: (ShoppingCartItem) -> Unit,
+    incrementQuantity: (ShoppingCartItemModel) -> Unit,
+    decrementQuantity: (ShoppingCartItemModel) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -149,13 +148,13 @@ fun ProductItemPriceColumn(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = stringResource(id = R.string.price, shoppingCartItem.product.price),
+            text = stringResource(id = R.string.price, shoppingCartItemModel.price),
             style = MaterialTheme.typography.h6,
         )
 
         IncrementOrDecrementButtons(
             modifier = Modifier,
-            shoppingCartItem = shoppingCartItem,
+            shoppingCartItemModel = shoppingCartItemModel,
             incrementQuantity = incrementQuantity,
             decrementQuantity = decrementQuantity
         )
@@ -165,12 +164,12 @@ fun ProductItemPriceColumn(
 @Composable
 fun IncrementOrDecrementButtons(
     modifier: Modifier,
-    shoppingCartItem: ShoppingCartItem,
-    incrementQuantity: (ShoppingCartItem) -> Unit,
-    decrementQuantity: (ShoppingCartItem) -> Unit,
+    shoppingCartItemModel: ShoppingCartItemModel,
+    incrementQuantity: (ShoppingCartItemModel) -> Unit,
+    decrementQuantity: (ShoppingCartItemModel) -> Unit,
 ) {
     Row(modifier.offset(y = (8).dp)) {
-        IconButton(onClick = { decrementQuantity(shoppingCartItem) }) {
+        IconButton(onClick = { decrementQuantity(shoppingCartItemModel) }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_delete), "Decrement quantity",
                 modifier = Modifier.padding(PaddingHalf)
@@ -178,11 +177,11 @@ fun IncrementOrDecrementButtons(
         }
 
         Text(
-            text = "${shoppingCartItem.quantity}",
+            text = "${shoppingCartItemModel.quantity}",
             modifier = Modifier.align(alignment = Alignment.CenterVertically)
         )
 
-        IconButton(onClick = { incrementQuantity(shoppingCartItem) }) {
+        IconButton(onClick = { incrementQuantity(shoppingCartItemModel) }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_add), "Increment quantity",
                 modifier = Modifier.padding(PaddingHalf)
@@ -194,8 +193,8 @@ fun IncrementOrDecrementButtons(
 @Preview
 @Composable
 fun ProductItemPreview() {
-    val product =
-        Product(
+    val shoppingCartItem =
+        ShoppingCartItemModel(
             description = "",
             id = 1,
             name = "Chair",
@@ -203,11 +202,11 @@ fun ProductItemPreview() {
             imageUrl = "https://via.placeholder.com/300.png",
             isRestored = false
         )
-    val shoppingCartItem = product.toShoppingCartItem()
+
     SetContentOnSurface(isDarkTheme = false) {
         ShoppingCartItem(
             modifier = Modifier,
-            shoppingCartItem = shoppingCartItem,
+            shoppingCartItemModel = shoppingCartItem,
             {}, {}, {}
         )
     }

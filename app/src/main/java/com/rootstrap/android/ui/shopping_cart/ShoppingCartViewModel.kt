@@ -3,17 +3,17 @@ package com.rootstrap.android.ui.shopping_cart
 import androidx.lifecycle.viewModelScope
 import com.rootstrap.android.ui.base.BaseViewModel
 import com.rootstrap.android.ui.base.UiState
-import com.rootstrap.domain.Product
-import com.rootstrap.usecases.GetProducts
+import com.rootstrap.domain.CartItem
+import com.rootstrap.usecases.GetUserCurrentCart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ShoppingCartViewModel(private val getProducts: GetProducts) :
+class ShoppingCartViewModel(private val getUserCurrentCart: GetUserCurrentCart) :
     BaseViewModel<ShoppingCartUiState>(ShoppingCartUiState()) {
 
     fun load() {
         viewModelScope.launch(Dispatchers.IO) {
-            val products = getProducts().map { it.toShoppingCartItem() }
+            val products = getUserCurrentCart().map { it.toShoppingCartItem() }
             setUiState {
                 uiState.copy(
                     products = products,
@@ -23,25 +23,25 @@ class ShoppingCartViewModel(private val getProducts: GetProducts) :
         }
     }
 
-    fun incrementQuantity(shoppingCartItem: ShoppingCartItem) {
-        updateQuantity(shoppingCartItem, 1)
+    fun incrementQuantity(shoppingCartItemModel: ShoppingCartItemModel) {
+        updateQuantity(shoppingCartItemModel, 1)
     }
 
-    fun decrementQuantity(shoppingCartItem: ShoppingCartItem) {
-        if (shoppingCartItem.quantity > 0)
-            updateQuantity(shoppingCartItem, -1)
+    fun decrementQuantity(shoppingCartItemModel: ShoppingCartItemModel) {
+        if (shoppingCartItemModel.quantity > 0)
+            updateQuantity(shoppingCartItemModel, -1)
     }
 
-    fun onRemoveItemTapped(shoppingCartItem: ShoppingCartItem) {
+    fun onRemoveItemTapped(shoppingCartItemModel: ShoppingCartItemModel) {
         val newList = uiState.products.toMutableList()
-        newList.remove(shoppingCartItem)
+        newList.remove(shoppingCartItemModel)
         setUiState {
             uiState.copy(products = newList, total = calculateTotal(newList))
         }
     }
 
-    private fun updateQuantity(shoppingCartItem: ShoppingCartItem, value: Int) {
-        uiState.products.first { it == shoppingCartItem }.quantity += value
+    private fun updateQuantity(shoppingCartItemModel: ShoppingCartItemModel, value: Int) {
+        uiState.products.first { it == shoppingCartItemModel }.quantity += value
         setUiState {
             uiState.copy(
                 total = calculateTotal(uiState.products)
@@ -61,10 +61,10 @@ class ShoppingCartViewModel(private val getProducts: GetProducts) :
     fun onGoToCheckOutTapped() {
     }
 
-    private fun calculateTotal(products: List<ShoppingCartItem>): Int {
+    private fun calculateTotal(products: List<ShoppingCartItemModel>): Int {
         var total = 0
         products.forEach {
-            total += it.quantity * it.product.price.toInt()
+            total += it.quantity * it.price.toInt()
         }
         return total
     }
@@ -72,17 +72,27 @@ class ShoppingCartViewModel(private val getProducts: GetProducts) :
 
 data class ShoppingCartUiState(
     override val isVisible: Boolean = true,
-    val products: List<ShoppingCartItem> = emptyList(),
+    val products: List<ShoppingCartItemModel> = emptyList(),
     val total: Int = 0
 ) : UiState
 
-data class ShoppingCartItem(
-    val product: Product,
+data class ShoppingCartItemModel(
+    val description: String,
+    val id: Int,
+    val name: String,
+    val price: String,
+    val imageUrl: String,
+    val isRestored: Boolean = false,
     var quantity: Int = 0
 )
 
-fun Product.toShoppingCartItem(): ShoppingCartItem =
-    ShoppingCartItem(
-        product = this,
-        quantity = 1
+fun CartItem.toShoppingCartItem(): ShoppingCartItemModel =
+    ShoppingCartItemModel(
+        description = description,
+        quantity = 1,
+        id = id,
+        name = name,
+        price = price,
+        imageUrl = imageUrl,
+        isRestored = isRestored,
     )

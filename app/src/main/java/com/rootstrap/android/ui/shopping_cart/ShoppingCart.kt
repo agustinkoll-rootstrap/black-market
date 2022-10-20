@@ -40,9 +40,9 @@ fun ShoppingCart() {
     ShoppingCart(
         uiState = uiState,
         onClearAllTapped = { shoppingCartViewModel.onClearAllTapped() },
-        incrementQuantity = { item: ShoppingCartItem -> shoppingCartViewModel.incrementQuantity(item) },
-        decrementQuantity = { item: ShoppingCartItem -> shoppingCartViewModel.decrementQuantity(item) },
-        onRemoveItemTapped = { item: ShoppingCartItem ->
+        incrementQuantity = { item: ShoppingCartItemModel -> shoppingCartViewModel.incrementQuantity(item) },
+        decrementQuantity = { item: ShoppingCartItemModel -> shoppingCartViewModel.decrementQuantity(item) },
+        onRemoveItemTapped = { item: ShoppingCartItemModel ->
             shoppingCartViewModel.onRemoveItemTapped(
                 item
             )
@@ -55,9 +55,9 @@ fun ShoppingCart() {
 fun ShoppingCart(
     uiState: ShoppingCartUiState,
     onClearAllTapped: () -> Unit,
-    incrementQuantity: (ShoppingCartItem) -> Unit,
-    decrementQuantity: (ShoppingCartItem) -> Unit,
-    onRemoveItemTapped: (ShoppingCartItem) -> Unit,
+    incrementQuantity: (ShoppingCartItemModel) -> Unit,
+    decrementQuantity: (ShoppingCartItemModel) -> Unit,
+    onRemoveItemTapped: (ShoppingCartItemModel) -> Unit,
     onGoToCheckOutTapped: () -> Unit,
 ) {
     SetContentOnSurface {
@@ -149,18 +149,18 @@ fun TotalSection(
 fun ShoppingCartList(
     modifier: Modifier,
     uiState: ShoppingCartUiState,
-    incrementQuantity: (ShoppingCartItem) -> Unit,
-    decrementQuantity: (ShoppingCartItem) -> Unit,
-    removeItem: (ShoppingCartItem) -> Unit,
+    incrementQuantity: (ShoppingCartItemModel) -> Unit,
+    decrementQuantity: (ShoppingCartItemModel) -> Unit,
+    removeItem: (ShoppingCartItemModel) -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
         itemsIndexed(
             uiState.products,
-            key = { pos, key -> uiState.products[pos].product.id }
+            key = { pos, key -> uiState.products[pos].id }
         ) { _, product ->
             ShoppingCartItem(
                 modifier = Modifier.animateItemPlacement(),
-                shoppingCartItem = product,
+                shoppingCartItemModel = product,
                 incrementQuantity = incrementQuantity,
                 decrementQuantity = decrementQuantity,
                 removeItem = removeItem
