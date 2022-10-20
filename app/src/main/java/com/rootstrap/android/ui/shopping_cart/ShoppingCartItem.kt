@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -114,7 +115,7 @@ fun ProductItemTitleColumn(
             style = MaterialTheme.typography.subtitle1
         )
 
-        Spacer(Modifier.height(4.dp))
+        Spacer(Modifier.height(PaddingHalf))
 
         if (shoppingCartItem.product.isRestored) {
             RestoredLabel()
@@ -153,6 +154,7 @@ fun ProductItemPriceColumn(
         )
 
         IncrementOrDecrementButtons(
+            modifier = Modifier,
             shoppingCartItem = shoppingCartItem,
             incrementQuantity = incrementQuantity,
             decrementQuantity = decrementQuantity
@@ -162,11 +164,12 @@ fun ProductItemPriceColumn(
 
 @Composable
 fun IncrementOrDecrementButtons(
+    modifier: Modifier,
     shoppingCartItem: ShoppingCartItem,
     incrementQuantity: (ShoppingCartItem) -> Unit,
     decrementQuantity: (ShoppingCartItem) -> Unit,
 ) {
-    Row() {
+    Row(modifier.offset(y = (8).dp)) {
         IconButton(onClick = { decrementQuantity(shoppingCartItem) }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_delete), "Decrement quantity",

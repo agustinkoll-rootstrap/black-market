@@ -35,9 +35,8 @@ class ShoppingCartViewModel(private val getProducts: GetProducts) :
     fun onRemoveItemTapped(shoppingCartItem: ShoppingCartItem) {
         val newList = uiState.products.toMutableList()
         newList.remove(shoppingCartItem)
-        calculateTotal(newList)
         setUiState {
-            uiState.copy(products = newList)
+            uiState.copy(products = newList, total = calculateTotal(newList))
         }
     }
 

@@ -28,7 +28,15 @@ class ProductRepository {
                 price = "45",
                 imageUrl = "https://via.placeholder.com/300.png",
                 isRestored = true
-            )
+            ),
+            Product(
+                description = "",
+                id = 4,
+                name = "Chair 4",
+                price = "60",
+                imageUrl = "https://via.placeholder.com/300.png",
+                isRestored = true
+            ),
         )
     }
 }
