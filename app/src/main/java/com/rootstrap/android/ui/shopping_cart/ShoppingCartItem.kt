@@ -30,15 +30,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
 import com.rootstrap.android.ui.custom.components.NewLabel
 import com.rootstrap.android.ui.custom.components.RestoredLabel
+import com.rootstrap.android.ui.ui.theme.CartItemHeight
+import com.rootstrap.android.ui.ui.theme.CartItemImageHeight
 import com.rootstrap.android.ui.ui.theme.DividerHeight
 import com.rootstrap.android.ui.ui.theme.LinkTextSmall
 import com.rootstrap.android.ui.ui.theme.PaddingHalf
+import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import com.rootstrap.android.ui.ui.theme.RoundedCornersRadiusNormal
 
 @Composable
@@ -52,29 +54,29 @@ fun ShoppingCartItem(
     val painter = rememberAsyncImagePainter(shoppingCartItemModel.imageUrl)
     Column(
         modifier = modifier
-            .border(width = 1.dp, Color.LightGray)
+            .border(DividerHeight, Color.LightGray)
             .background(MaterialTheme.colors.surface)
             .clip(RoundedCornerShape(RoundedCornersRadiusNormal))
 
     ) {
         Row(
             modifier = Modifier
-                .height(150.dp)
+                .height(CartItemHeight)
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(PaddingNormal)
         ) {
             Image(
                 painter = painter,
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(140.dp)
+                    .width(CartItemImageHeight)
             )
 
             ProductItemTitleColumn(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(start = 10.dp),
+                    .padding(start = PaddingHalf),
                 shoppingCartItemModel = shoppingCartItemModel,
                 removeItem = removeItem
             )
@@ -168,7 +170,7 @@ fun IncrementOrDecrementButtons(
     incrementQuantity: (ShoppingCartItemModel) -> Unit,
     decrementQuantity: (ShoppingCartItemModel) -> Unit,
 ) {
-    Row(modifier.offset(y = (8).dp)) {
+    Row(modifier.offset(y = PaddingHalf, x = PaddingHalf)) {
         IconButton(onClick = { decrementQuantity(shoppingCartItemModel) }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_delete), "Decrement quantity",
