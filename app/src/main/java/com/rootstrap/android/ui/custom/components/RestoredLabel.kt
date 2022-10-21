@@ -18,9 +18,9 @@ import com.rootstrap.android.ui.ui.theme.RestoredGreen
 import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
 @Composable
-fun RestoredLabel() {
+fun RestoredLabel(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(shape = RoundedCornerShape(10))
             .background(RestoredGreen)
             .width(TagLabelWidth)

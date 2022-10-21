@@ -18,4 +18,9 @@ sealed class NavigationRoutes(
 
     object Favourite :
         NavigationRoutes("favourite", "Favourites", R.drawable.ic_favorite)
+
+    object ProductDetail :
+        NavigationRoutes("dashboard/product_detail/{productId}") {
+        fun getProductIdRoute(productId: Int) = "dashboard/product_detail/$productId"
+    }
 }

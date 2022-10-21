@@ -102,7 +102,7 @@ android {
         }
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.1.1"
+        kotlinCompilerExtensionVersion = "1.2.0-alpha08"
     }
     defaultConfig {
         vectorDrawables {

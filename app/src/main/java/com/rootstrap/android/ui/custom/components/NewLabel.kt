@@ -18,9 +18,9 @@ import com.rootstrap.android.ui.ui.theme.PaddingEightQuarters
 import com.rootstrap.android.ui.ui.theme.TagLabelWidth
 
 @Composable
-fun NewLabel() {
+fun NewLabel(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(shape = RoundedCornerShape(10))
             .background(NewLabelBlue)
             .width(TagLabelWidth)
