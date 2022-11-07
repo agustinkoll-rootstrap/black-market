@@ -21,7 +21,7 @@ val Typography = Typography(
     h6 = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
-        letterSpacing = 0.15.sp
+        letterSpacing = 0.15.sp,
     )
 )
 
@@ -29,4 +29,18 @@ val BoldBody2 = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 14.sp,
     letterSpacing = 0.25.sp
+)
+
+val LinkTextSmall = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 14.sp,
+    letterSpacing = 0.25.sp,
+    color = BlueLink
+)
+
+val LinkTextMedium = TextStyle(
+    fontWeight = FontWeight.Bold,
+    fontSize = 16.sp,
+    letterSpacing = 0.25.sp,
+    color = BlueLink
 )

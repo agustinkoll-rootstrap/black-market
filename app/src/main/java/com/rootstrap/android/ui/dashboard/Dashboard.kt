@@ -5,6 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +22,7 @@ import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
 import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.navigateToProductsList
 import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.openProductDetail
+import com.rootstrap.android.ui.ui.theme.LinkTextMedium
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -34,7 +37,7 @@ fun Dashboard(navController: NavHostController) {
     }
 
     SetContentOnSurface {
-        Column {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             DashboardProductsList(
                 uiState = uiState,
                 addToFavourites = {
@@ -48,6 +51,12 @@ fun Dashboard(navController: NavHostController) {
             SeeAllButton {
                 navigateToProductsList(navController)
             }
+
+            DashboardSaleBanner()
+
+            DashboardPaymentsMethodsBanner()
+
+            DashboardBannerShipment()
         }
     }
 }
@@ -60,7 +69,7 @@ fun ColumnScope.SeeAllButton(onSeeAllButtonClick: () -> Unit) {
             .padding(top = PaddingNormal)
             .align(Alignment.CenterHorizontally)
             .clickable { onSeeAllButtonClick() },
-        style = MaterialTheme.typography.body1,
+        style = LinkTextMedium,
         color = MaterialTheme.colors.secondaryVariant,
     )
 }

@@ -1,5 +1,3 @@
-import Dependencies.Versions.COMPOSE
-
 plugins {
     with(Dependencies.Plugins) {
         id(ANDROID_APP)
@@ -7,7 +5,7 @@ plugins {
         kotlin(KAPT)
         id(GOOGLE_SERVICES)
         id(CRASHLYTICS)
-        id (SONAR) version Dependencies.Versions.SONAR
+        id(SONAR) version Dependencies.Versions.SONAR
     }
 }
 
@@ -76,7 +74,11 @@ android {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
             isMinifyEnabled = false
-            buildConfigField("String", "API_URL", "\"https://rails5-api-base.herokuapp.com/api/v1/\"")
+            buildConfigField(
+                "String",
+                "API_URL",
+                "\"https://rails5-api-base.herokuapp.com/api/v1/\""
+            )
             buildConfigField("String", "SECURE_KEY_ALIAS", "\"$projectKeyAlias\"")
             buildConfigField("String", "SECURE_FILE_NAME", "\"appPreferencesDev\"")
         }
@@ -149,7 +151,7 @@ dependencies {
         implementation(WORK_RUNTIME)
     }
 
-    with(Dependencies.JetpackCompose){
+    with(Dependencies.JetpackCompose) {
         implementation(compose_compiler)
         implementation(compose_ui)
         implementation(compose_tooling)
@@ -161,6 +163,7 @@ dependencies {
         implementation(compose_navigation)
         implementation(compose_icons)
         implementation(compose_coil)
+        implementation(compose_constraint)
     }
 
     with(Dependencies.Common) {

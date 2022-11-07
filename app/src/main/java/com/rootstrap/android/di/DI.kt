@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import com.rootstrap.android.BuildConfig
 import com.rootstrap.android.ui.dashboard.DashboardViewModel
 import com.rootstrap.android.ui.products_list.ProductListViewModel
+import com.rootstrap.android.ui.shopping_cart.ShoppingCartViewModel
 import com.rootstrap.android.util.dispatcher.AppDispatcherProvider
 import com.rootstrap.android.util.dispatcher.DispatcherProvider
 import com.rootstrap.data.api.ApiProvider
@@ -17,9 +18,11 @@ import com.rootstrap.data.api.interceptors.ResponseInterceptor
 import com.rootstrap.data.managers.session.SessionManager
 import com.rootstrap.data.managers.session.SessionManagerImpl
 import com.rootstrap.data.repository.ProductRepository
+import com.rootstrap.data.repository.UserCartRepository
 import com.rootstrap.data.repository.UserRepository
 import com.rootstrap.data.util.Prefs
 import com.rootstrap.usecases.GetProducts
+import com.rootstrap.usecases.GetUserCurrentCart
 import com.rootstrap.usecases.SignIn
 import com.rootstrap.usecases.SignOut
 import com.rootstrap.usecases.SignUp
@@ -51,8 +54,10 @@ val appModule = module {
     single { SignIn(get()) }
     single { SignOut(get()) }
     single { GetProducts(get()) }
+    single { GetUserCurrentCart(get()) }
     viewModel { ProductListViewModel(get()) }
     viewModel { DashboardViewModel(get()) }
+    viewModel { ShoppingCartViewModel(get()) }
 }
 
 val dataModule = module {
@@ -72,6 +77,7 @@ val dataModule = module {
     single { Prefs(get()) }
     single { UserRepository(get()) }
     single { ProductRepository() }
+    single { UserCartRepository() }
     single<SessionManager> { SessionManagerImpl(get()) }
 }
 

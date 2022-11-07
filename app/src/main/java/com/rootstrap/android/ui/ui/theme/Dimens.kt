@@ -6,9 +6,16 @@ val ProductItemDashboardWidth = 136.dp
 val ProductItemDashboardHeight = 120.dp
 val DividerHeight = 1.dp
 val TagLabelWidth = 70.dp
+val PublicityBannerHeight = 140.dp
+val PublicityBannerWidth = 160.dp
 
-val elevationNormal = 4.dp
-val roundedCornersRadius = 8.dp
+val ElevationNormal = 4.dp
+val RoundedCornersRadiusNormal = 8.dp
+val PaymentMethodIconWidth = 30.dp
+val PaymentMethodIconHeight = 20.dp
+val ShipmentHeight = 170.dp
+val CartItemHeight = 150.dp
+val CartItemImageHeight = 140.dp
 
 // standard Paddings
 val PaddingEightQuarters = 2.dp
