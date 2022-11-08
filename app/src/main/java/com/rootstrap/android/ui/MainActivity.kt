@@ -11,6 +11,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.rootstrap.android.ui.compose_navigation.NavigationHost
@@ -27,11 +30,13 @@ class MainActivity : ComponentActivity() {
             NavigationRoutes.ShoppingCart,
             NavigationRoutes.Favourite,
         )
+
         setContent {
+            val topBarVisibility = remember{ mutableStateOf(true) }
             val navHostController = rememberNavController()
             SetContentOnSurface {
                 Scaffold(
-                    topBar = { TopBar() },
+                    topBar = { TopBar(topBarVisibility.value) },
                     bottomBar = {
                         BottomNavigationBar(
                             navController = navHostController,
@@ -40,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        NavigationHost(navHostController = navHostController)
+                        NavigationHost(navHostController = navHostController, topBarVisibility)
                     }
                 }
             }
@@ -61,3 +66,5 @@ fun SetContentOnSurface(
         )
     }
 }
+
+
