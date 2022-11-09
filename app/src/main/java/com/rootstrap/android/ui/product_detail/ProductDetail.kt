@@ -108,16 +108,22 @@ fun CollapsingToolbar(
 }
 
 @Composable
-private fun Header(scroll: ScrollState, imageUrl: String, headerHeightPx: Float) {
+private fun Header(
+    scroll: ScrollState,
+    imageUrl: String,
+    headerHeightPx: Float,
+) {
     val painter = rememberAsyncImagePainter(imageUrl)
+    val imageAlpha = (-1f / headerHeightPx) * scroll.value * 1.20f + 1
+    val imageTranslationY = -scroll.value.toFloat() / 2f
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(MaxToolbarHeight)
             .graphicsLayer {
-                alpha = (-1f / headerHeightPx) * scroll.value * 1.25f + 1
-                translationY = -scroll.value.toFloat() / 2f
+                alpha = imageAlpha
+                translationY = imageTranslationY
             }
     ) {
 
@@ -133,9 +139,10 @@ private fun Header(scroll: ScrollState, imageUrl: String, headerHeightPx: Float)
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color.Transparent, Color(0xAA000000)),
-                        startY = 3 * headerHeightPx / 4
+                        colors = listOf(Color(0x44CCCCCC), Color(0xAA000000)),
+                        startY = headerHeightPx //3 * headerHeightPx / 4
                     )
+
                 )
         )
     }
@@ -204,17 +211,30 @@ private fun Toolbar(
         }
     }
 
-    AnimatedVisibility(
-        visible = showToolbar,
-        enter = fadeIn(animationSpec = tween(300)),
-        exit = fadeOut(animationSpec = tween(300))
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(ToolbarHeight)
     ) {
+        AnimatedVisibility(
+            visible = showToolbar,
+            enter = fadeIn(animationSpec = tween(300)),
+            exit = fadeOut(animationSpec = tween(300))
+        ) {
+            Box(
+                Modifier
+                    .background(MaterialTheme.colors.primary)
+                    .fillMaxSize()
+            )
+        }
 
         TopAppBar(
             navigationIcon = {
                 BackArrow(modifier = Modifier)
             },
             title = {},
+            backgroundColor = Color.Transparent,
+            elevation = 0.dp
         )
     }
 }
@@ -262,14 +282,14 @@ private fun Title(
                 val titleExtraStartPadding = titleWidthPx.toDp() * (1 - scaleXY.value) / 2f
 
                 val titleY = lerp(
-                    MaxToolbarHeight - titleHeightDp - PaddingNormal, // start Y
-                    ToolbarHeight / 2 - titleHeightDp / 2, // end Y
+                    MaxToolbarHeight - titleHeightDp - PaddingNormal,
+                    ToolbarHeight / 2 - titleHeightDp / 2,
                     collapseFraction
                 )
 
                 val titleX = lerp(
-                    PaddingNormal, // start X
-                    72.dp - titleExtraStartPadding, // end X
+                    PaddingNormal,
+                    72.dp - titleExtraStartPadding,
                     collapseFraction
                 )
 
@@ -279,8 +299,6 @@ private fun Title(
                 scaleY = scaleXY.value
             }
             .onGloballyPositioned {
-                // We don't know title height in advance to calculate the lerp
-                // so we wait for initial composition
                 titleHeightPx = it.size.height.toFloat()
                 titleWidthPx = it.size.width.toFloat()
             },
