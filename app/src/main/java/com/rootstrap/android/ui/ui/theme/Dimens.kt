@@ -1,5 +1,6 @@
 package com.rootstrap.android.ui.ui.theme
 
+import android.widget.Toolbar
 import androidx.compose.ui.unit.dp
 
 val ProductItemDashboardWidth = 136.dp
@@ -21,6 +22,7 @@ val CartItemImageHeight = 140.dp
 
 val MaxToolbarHeight = 170.dp
 val ToolbarHeight = 56.dp
+val ToolbarPaddingStart = 72.dp
 
 // standard Paddings
 val PaddingEightQuarters = 2.dp

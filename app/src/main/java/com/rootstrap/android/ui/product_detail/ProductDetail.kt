@@ -1,3 +1,7 @@
+/**
+ * Collapsing toolbar based on https://proandroiddev.com/collapsing-toolbar-with-parallax-effect-and-curve-motion-in-jetpack-compose-9ed1c3c0393f
+ * and https://medium.com/kotlin-and-kotlin-for-android/collapsing-toolbar-in-jetpack-compose-column-version-11bb2bb83177
+ * */
 package com.rootstrap.android.ui.product_detail
 
 import androidx.activity.ComponentActivity
@@ -15,17 +19,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -52,14 +51,18 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.custom.components.BackArrow
 import com.rootstrap.android.ui.custom.components.NewLabel
 import com.rootstrap.android.ui.custom.components.PrimaryButton
 import com.rootstrap.android.ui.custom.components.RestoredLabel
 import com.rootstrap.android.ui.dashboard.DashboardBannerShipment
+import com.rootstrap.android.ui.ui.theme.BlackTransparent
 import com.rootstrap.android.ui.ui.theme.BoldBody2
+import com.rootstrap.android.ui.ui.theme.GreyTransparent
 import com.rootstrap.android.ui.ui.theme.MaxToolbarHeight
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import com.rootstrap.android.ui.ui.theme.ToolbarHeight
+import com.rootstrap.android.ui.ui.theme.ToolbarPaddingStart
 import com.rootstrap.domain.Product
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -87,14 +90,12 @@ fun ProductDetail(productId: Int) {
 }
 
 @Composable
-fun CollapsingToolbar(
-    product: Product, imageUrl: String, modifier: Modifier = Modifier
-) {
+fun CollapsingToolbar(product: Product, imageUrl: String, modifier: Modifier = Modifier) {
     val scroll: ScrollState = rememberScrollState(0)
     val headerHeightPx = LocalDensity.current.run { MaxToolbarHeight.toPx() }
     val toolbarHeightPx = with(LocalDensity.current) { ToolbarHeight.toPx() }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier) {
         Header(scroll, imageUrl, headerHeightPx)
         ProductBody(product = product, scroll = scroll)
         Toolbar(scroll, headerHeightPx, toolbarHeightPx)
@@ -139,10 +140,9 @@ private fun Header(
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(Color(0x44CCCCCC), Color(0xAA000000)),
-                        startY = headerHeightPx //3 * headerHeightPx / 4
+                        colors = listOf(GreyTransparent, BlackTransparent),
+                        startY = headerHeightPx
                     )
-
                 )
         )
     }
@@ -194,6 +194,7 @@ fun ProductBody(product: Product, scroll: ScrollState, addToCartClick: (Product)
             text = stringResource(R.string.txt_add_to_cart)
         )
 
+        // This is to add the collapsing effect of the body
         Spacer(Modifier.height(MaxToolbarHeight * 2))
     }
 }
@@ -240,22 +241,6 @@ private fun Toolbar(
 }
 
 @Composable
-fun BackArrow(modifier: Modifier) {
-    IconButton(
-        onClick = {},
-        modifier = modifier
-            .padding(horizontal = 16.dp)
-            .size(36.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Filled.ArrowBack,
-            contentDescription = "",
-            tint = Color.White
-        )
-    }
-}
-
-@Composable
 private fun Title(
     title: String,
     scroll: ScrollState,
@@ -289,7 +274,7 @@ private fun Title(
 
                 val titleX = lerp(
                     PaddingNormal,
-                    72.dp - titleExtraStartPadding,
+                    ToolbarPaddingStart - titleExtraStartPadding,
                     collapseFraction
                 )
 
