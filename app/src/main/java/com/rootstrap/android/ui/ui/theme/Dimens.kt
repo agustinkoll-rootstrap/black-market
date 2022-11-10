@@ -1,6 +1,5 @@
 package com.rootstrap.android.ui.ui.theme
 
-import android.widget.Toolbar
 import androidx.compose.ui.unit.dp
 
 val ProductItemDashboardWidth = 136.dp
