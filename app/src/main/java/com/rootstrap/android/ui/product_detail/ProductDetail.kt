@@ -68,6 +68,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 private const val titleFontScaleStart = 1f
 private const val titleFontScaleEnd = 0.66f
+private const val toolbarAnimationDuration = 300
 
 @Composable
 fun ProductDetail(productId: Int) {
@@ -98,7 +99,7 @@ fun CollapsingToolbar(product: Product, imageUrl: String, modifier: Modifier = M
     Box(modifier = modifier) {
         Header(scroll, imageUrl, headerHeightPx)
         ProductBody(product = product, scroll = scroll)
-        Toolbar(scroll, headerHeightPx, toolbarHeightPx)
+        AnimatedToolbar(scroll, headerHeightPx, toolbarHeightPx)
         Title(
             title = product.name,
             scroll = scroll,
@@ -200,7 +201,7 @@ fun ProductBody(product: Product, scroll: ScrollState, addToCartClick: (Product)
 }
 
 @Composable
-private fun Toolbar(
+private fun AnimatedToolbar(
     scroll: ScrollState,
     headerHeightPx: Float,
     toolbarHeightPx: Float
@@ -219,8 +220,8 @@ private fun Toolbar(
     ) {
         AnimatedVisibility(
             visible = showToolbar,
-            enter = fadeIn(animationSpec = tween(300)),
-            exit = fadeOut(animationSpec = tween(300))
+            enter = fadeIn(animationSpec = tween(toolbarAnimationDuration)),
+            exit = fadeOut(animationSpec = tween(toolbarAnimationDuration))
         ) {
             Box(
                 Modifier
