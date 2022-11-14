@@ -17,6 +17,12 @@ val ShipmentHeight = 170.dp
 val CartItemHeight = 150.dp
 val CartItemImageHeight = 140.dp
 
+// collapsable toolbar
+
+val MaxToolbarHeight = 170.dp
+val ToolbarHeight = 56.dp
+val ToolbarPaddingStart = 72.dp
+
 // standard Paddings
 val PaddingEightQuarters = 2.dp
 val PaddingQuarter = 4.dp

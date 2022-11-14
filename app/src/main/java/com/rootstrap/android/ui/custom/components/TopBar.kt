@@ -16,19 +16,25 @@ import androidx.compose.ui.unit.dp
 import com.rootstrap.android.R
 
 @Composable
-fun TopBar() {
-    TopAppBar(
-        title = {
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Icon(
-                    painterResource(R.drawable.ic_logo), contentDescription = stringResource(R.string.app_logo_content_logo)
-                )
-                Text(
-                    modifier = Modifier.padding(start = 5.dp),
-                    text = stringResource(R.string.txt_title),
-                    style = MaterialTheme.typography.subtitle1
-                )
-            }
-        },
-    )
+fun TopBar(isVisible: Boolean) {
+    if (isVisible) {
+        TopAppBar(
+            title = {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        painterResource(R.drawable.ic_logo),
+                        contentDescription = stringResource(R.string.app_logo_content_logo)
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 5.dp),
+                        text = stringResource(R.string.txt_title),
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                }
+            },
+        )
+    }
 }

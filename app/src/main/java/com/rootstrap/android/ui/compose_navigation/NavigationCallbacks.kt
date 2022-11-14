@@ -9,6 +9,6 @@ object NavigationCallbacks {
     }
 
     fun openProductDetail(navController: NavHostController, product: Product) {
-        // TODO: navigate to product detail
+        navController.navigate(NavigationRoutes.ProductDetail.getProductIdRoute(product.id))
     }
 }
