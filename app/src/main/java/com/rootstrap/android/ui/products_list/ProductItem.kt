@@ -9,15 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -26,10 +23,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.rootstrap.android.R
 import com.rootstrap.android.ui.SetContentOnSurface
+import com.rootstrap.android.ui.custom.components.NewLabel
 import com.rootstrap.android.ui.custom.components.PrimaryButton
 import com.rootstrap.android.ui.custom.components.RestoredLabel
+import com.rootstrap.android.ui.ui.theme.AddToCartButtonHeight
 import com.rootstrap.android.ui.ui.theme.DividerHeight
+import com.rootstrap.android.ui.ui.theme.PaddingHalf
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
+import com.rootstrap.android.ui.ui.theme.ProductCardHeight
 import com.rootstrap.domain.Product
 
 @Composable
@@ -42,8 +43,8 @@ fun ProductItem(
     Column(modifier = modifier) {
         Row(
             modifier = Modifier
-                .height(150.dp)
-                .padding(16.dp)
+                .height(ProductCardHeight)
+                .padding(PaddingNormal)
         ) {
             Image(
                 painter = painter,
@@ -51,12 +52,13 @@ fun ProductItem(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(140.dp)
+                    .fillMaxHeight()
             )
 
             ProductItemTitleColumn(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .padding(start = 10.dp),
+                    .padding(start = PaddingHalf),
                 product = product,
                 addToCartClick = addToCartClick
             )
@@ -88,13 +90,15 @@ fun ProductItemTitleColumn(
             style = MaterialTheme.typography.subtitle1
         )
 
-        Divider(Modifier.height(4.dp), color = MaterialTheme.colors.background)
+        Divider(Modifier.height(PaddingHalf), color = MaterialTheme.colors.background)
 
         if (product.isRestored) {
             RestoredLabel()
+        } else {
+            NewLabel()
         }
 
-        Divider(Modifier.height(16.dp), color = MaterialTheme.colors.background)
+        Divider(Modifier.height(PaddingNormal), color = MaterialTheme.colors.background)
 
         Text(
             text = stringResource(id = R.string.price, product.price),
@@ -104,12 +108,12 @@ fun ProductItemTitleColumn(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight(),
+                .height(AddToCartButtonHeight),
             contentAlignment = Alignment.BottomEnd,
         ) {
             PrimaryButton<Product>(
                 onClick = { addToCartClick(product) },
-                modifier = Modifier.clip(RoundedCornerShape(4.dp)),
+                modifier = Modifier.fillMaxHeight(),
                 value = product,
                 text = stringResource(R.string.txt_add_to_cart)
             )

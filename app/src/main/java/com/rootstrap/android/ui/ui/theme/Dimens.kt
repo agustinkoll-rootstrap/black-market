@@ -16,7 +16,8 @@ val PaymentMethodIconHeight = 20.dp
 val ShipmentHeight = 170.dp
 val CartItemHeight = 150.dp
 val CartItemImageHeight = 140.dp
-
+val ProductCardHeight = 180.dp
+val AddToCartButtonHeight = 70.dp
 // collapsable toolbar
 
 val MaxToolbarHeight = 170.dp

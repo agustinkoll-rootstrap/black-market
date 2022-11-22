@@ -47,4 +47,6 @@
     <string name="txt_clear_all">Clear all</string>
     <string name="txt_total">Total: $%s</string>
     <string name="txt_go_to_checkout">Go to checkout</string>
+    <string name="clear">Clear</string>
+    <string name="search">Search</string>
 </resources>
