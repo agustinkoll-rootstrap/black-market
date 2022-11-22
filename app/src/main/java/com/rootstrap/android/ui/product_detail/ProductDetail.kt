@@ -58,7 +58,6 @@ import com.rootstrap.android.ui.custom.components.RestoredLabel
 import com.rootstrap.android.ui.dashboard.DashboardBannerShipment
 import com.rootstrap.android.ui.ui.theme.BlackTransparent
 import com.rootstrap.android.ui.ui.theme.BoldBody2
-import com.rootstrap.android.ui.ui.theme.GreyTransparent
 import com.rootstrap.android.ui.ui.theme.MaxToolbarHeight
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import com.rootstrap.android.ui.ui.theme.ToolbarHeight
@@ -127,6 +126,7 @@ private fun Header(
                 alpha = imageAlpha
                 translationY = imageTranslationY
             }
+
     ) {
 
         Image(
@@ -136,13 +136,15 @@ private fun Header(
             modifier = Modifier
                 .fillMaxSize(),
         )
+
         Box(
             Modifier
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(GreyTransparent, BlackTransparent),
-                        startY = headerHeightPx
+                        colors = listOf(BlackTransparent, Color.Transparent),
+                        startY = headerHeightPx,
+                        endY = 0f
                     )
                 )
         )
@@ -309,4 +311,20 @@ fun productDetailPreview() {
     val scroll: ScrollState = rememberScrollState(0)
 
     ProductBody(product = product, scroll) {}
+}
+
+@Preview
+@Composable
+fun collapsingToolbarPreview() {
+    val product = Product(
+        description = "Description",
+        id = 1,
+        name = "Chair",
+        price = "40",
+        imageUrl = "",
+        isRestored = false
+    )
+    val scroll: ScrollState = rememberScrollState(0)
+
+    CollapsingToolbar(product = product, "")
 }
