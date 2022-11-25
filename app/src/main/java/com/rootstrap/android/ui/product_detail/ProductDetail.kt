@@ -62,8 +62,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.navigateToSuccessPage
 import com.rootstrap.android.ui.custom.components.BackArrow
 import com.rootstrap.android.ui.custom.components.NewLabel
 import com.rootstrap.android.ui.custom.components.PrimaryButton
@@ -85,7 +87,7 @@ private const val titleFontScaleEnd = 0.66f
 private const val toolbarAnimationDuration = 300
 
 @Composable
-fun ProductDetail(productId: Int) {
+fun ProductDetail(productId: Int, navController: NavHostController) {
     val context = LocalContext.current as ComponentActivity
     val productDetailViewModel: ProductDetailViewModel =
         context.getViewModel<ProductDetailViewModel>()
@@ -100,12 +102,17 @@ fun ProductDetail(productId: Int) {
             product = this,
             imageUrl = imageUrl,
             modifier = Modifier.fillMaxSize()
-        )
+        ) { navigateToSuccessPage(product = it, navController = navController) }
     }
 }
 
 @Composable
-fun CollapsingToolbar(product: Product, imageUrl: String, modifier: Modifier = Modifier) {
+fun CollapsingToolbar(
+    product: Product,
+    imageUrl: String,
+    modifier: Modifier = Modifier,
+    onSuccess: (product: Product) -> Unit
+) {
     val scroll: ScrollState = rememberScrollState(0)
     val headerHeightPx = LocalDensity.current.run { MaxToolbarHeight.toPx() }
     val toolbarHeightPx = with(LocalDensity.current) { ToolbarHeight.toPx() }
@@ -129,6 +136,8 @@ fun CollapsingToolbar(product: Product, imageUrl: String, modifier: Modifier = M
             modifier = Modifier.align(Alignment.Center),
             isVisible = isBoxVisible,
             background = RestoredGreen,
+            product = product,
+            onSuccess
         )
     }
 }
@@ -249,7 +258,13 @@ fun AnimatedBuyButton(product: Product, addToCartClick: (Product) -> Unit) {
 }
 
 @Composable
-fun AnimatedBox(modifier: Modifier, isVisible: Boolean, background: Color) {
+fun AnimatedBox(
+    modifier: Modifier,
+    isVisible: Boolean,
+    background: Color,
+    product: Product,
+    onSuccess: (product: Product) -> Unit
+) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     val screenHeight = configuration.screenHeightDp
@@ -267,16 +282,15 @@ fun AnimatedBox(modifier: Modifier, isVisible: Boolean, background: Color) {
     }
 
     val yAxisAnimation by transition.animateDp(transitionSpec = {
-        //spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessMediumLow)
+        // spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessMediumLow)
         tween(
             delayMillis = 700,
             durationMillis = 500
         )
-
     }, label = "x") { isVisible ->
         if (isVisible)
             screenHeight.dp
-        else 150.dp
+        else 170.dp
     }
 
     val borderAnimation by animateIntAsState(
@@ -284,16 +298,25 @@ fun AnimatedBox(modifier: Modifier, isVisible: Boolean, background: Color) {
         animationSpec = tween(durationMillis = 800, delayMillis = 500)
     )
 
+    val bigBorderAnimation by animateIntAsState(
+        targetValue = if (isVisible) 0 else 50,
+        animationSpec = tween(durationMillis = 800, delayMillis = 500),
+        finishedListener = {
+            onSuccess(product)
+        }
+    )
+
     AnimatedVisibility(visible = isVisible) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Column(
                 modifier = modifier
+                    .clip(shape = RoundedCornerShape(bigBorderAnimation))
                     .width(xAxisAnimation)
                     .height(yAxisAnimation)
                     .background(background)
                     .align(Alignment.Center),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 AnimatedVisibility(
                     visible = isVisible,
@@ -452,5 +475,5 @@ fun collapsingToolbarPreview() {
     )
     val scroll: ScrollState = rememberScrollState(0)
 
-    CollapsingToolbar(product = product, "")
+    CollapsingToolbar(product = product, "") {}
 }

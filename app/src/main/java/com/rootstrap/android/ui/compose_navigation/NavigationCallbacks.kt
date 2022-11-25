@@ -11,4 +11,8 @@ object NavigationCallbacks {
     fun openProductDetail(navController: NavHostController, product: Product) {
         navController.navigate(NavigationRoutes.ProductDetail.getProductIdRoute(product.id))
     }
+
+    fun navigateToSuccessPage(navController: NavHostController, product: Product) {
+        navController.navigate(NavigationRoutes.SuccessPage.getProductIdRoute(product.id))
+    }
 }
