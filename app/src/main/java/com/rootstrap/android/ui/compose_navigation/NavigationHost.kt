@@ -12,6 +12,7 @@ import com.rootstrap.android.ui.favourite.Favourite
 import com.rootstrap.android.ui.product_detail.ProductDetail
 import com.rootstrap.android.ui.products_list.ProductsList
 import com.rootstrap.android.ui.shopping_cart.ShoppingCart
+import com.rootstrap.android.ui.success.SuccessPage
 
 @Composable
 fun NavigationHost(navHostController: NavHostController, topBarVisibility: MutableState<Boolean>) {
@@ -40,7 +41,14 @@ fun NavigationHost(navHostController: NavHostController, topBarVisibility: Mutab
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
         ) { navBackStackEntry ->
             topBarVisibility.value = false
-            ProductDetail(navBackStackEntry.arguments?.getInt("productId") ?: -1)
+            ProductDetail(navBackStackEntry.arguments?.getInt("productId") ?: -1, navHostController)
+        }
+        composable(
+            route = NavigationRoutes.SuccessPage.route,
+            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+        ) { navBackStackEntry ->
+            topBarVisibility.value = true
+            SuccessPage(navBackStackEntry.arguments?.getInt("productId") ?: -1)
         }
     }
 }

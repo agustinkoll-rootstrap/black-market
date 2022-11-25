@@ -20,7 +20,7 @@ val ProductCardHeight = 180.dp
 val AddToCartButtonHeight = 70.dp
 // collapsable toolbar
 
-val MaxToolbarHeight = 170.dp
+val MaxToolbarHeight = 250.dp
 val ToolbarHeight = 56.dp
 val ToolbarPaddingStart = 72.dp
 

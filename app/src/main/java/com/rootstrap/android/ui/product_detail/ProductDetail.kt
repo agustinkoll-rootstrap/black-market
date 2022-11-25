@@ -6,12 +6,19 @@ package com.rootstrap.android.ui.product_detail
 
 import androidx.activity.ComponentActivity
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,12 +26,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -41,6 +53,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -49,8 +62,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.navigateToSuccessPage
 import com.rootstrap.android.ui.custom.components.BackArrow
 import com.rootstrap.android.ui.custom.components.NewLabel
 import com.rootstrap.android.ui.custom.components.PrimaryButton
@@ -58,9 +73,10 @@ import com.rootstrap.android.ui.custom.components.RestoredLabel
 import com.rootstrap.android.ui.dashboard.DashboardBannerShipment
 import com.rootstrap.android.ui.ui.theme.BlackTransparent
 import com.rootstrap.android.ui.ui.theme.BoldBody2
-import com.rootstrap.android.ui.ui.theme.GreyTransparent
 import com.rootstrap.android.ui.ui.theme.MaxToolbarHeight
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
+import com.rootstrap.android.ui.ui.theme.RestoredGreen
+import com.rootstrap.android.ui.ui.theme.RichBlack
 import com.rootstrap.android.ui.ui.theme.ToolbarHeight
 import com.rootstrap.android.ui.ui.theme.ToolbarPaddingStart
 import com.rootstrap.domain.Product
@@ -71,7 +87,7 @@ private const val titleFontScaleEnd = 0.66f
 private const val toolbarAnimationDuration = 300
 
 @Composable
-fun ProductDetail(productId: Int) {
+fun ProductDetail(productId: Int, navController: NavHostController) {
     val context = LocalContext.current as ComponentActivity
     val productDetailViewModel: ProductDetailViewModel =
         context.getViewModel<ProductDetailViewModel>()
@@ -86,25 +102,42 @@ fun ProductDetail(productId: Int) {
             product = this,
             imageUrl = imageUrl,
             modifier = Modifier.fillMaxSize()
-        )
+        ) { navigateToSuccessPage(product = it, navController = navController) }
     }
 }
 
 @Composable
-fun CollapsingToolbar(product: Product, imageUrl: String, modifier: Modifier = Modifier) {
+fun CollapsingToolbar(
+    product: Product,
+    imageUrl: String,
+    modifier: Modifier = Modifier,
+    onSuccess: (product: Product) -> Unit
+) {
     val scroll: ScrollState = rememberScrollState(0)
     val headerHeightPx = LocalDensity.current.run { MaxToolbarHeight.toPx() }
     val toolbarHeightPx = with(LocalDensity.current) { ToolbarHeight.toPx() }
+    var isBoxVisible by remember {
+        mutableStateOf(false)
+    }
 
     Box(modifier = modifier) {
         Header(scroll, imageUrl, headerHeightPx)
-        ProductBody(product = product, scroll = scroll)
+        ProductBody(product = product, scroll = scroll) {
+            isBoxVisible = isBoxVisible.not()
+        }
         AnimatedToolbar(scroll, headerHeightPx, toolbarHeightPx)
         Title(
             title = product.name,
             scroll = scroll,
             headerHeightPx = headerHeightPx,
             toolbarHeightPx = toolbarHeightPx
+        )
+        AnimatedBox(
+            modifier = Modifier.align(Alignment.Center),
+            isVisible = isBoxVisible,
+            background = RestoredGreen,
+            product = product,
+            onSuccess
         )
     }
 }
@@ -127,6 +160,7 @@ private fun Header(
                 alpha = imageAlpha
                 translationY = imageTranslationY
             }
+
     ) {
 
         Image(
@@ -136,13 +170,15 @@ private fun Header(
             modifier = Modifier
                 .fillMaxSize(),
         )
+
         Box(
             Modifier
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(GreyTransparent, BlackTransparent),
-                        startY = headerHeightPx
+                        colors = listOf(BlackTransparent, Color.Transparent),
+                        startY = headerHeightPx,
+                        endY = 0f
                     )
                 )
         )
@@ -185,18 +221,133 @@ fun ProductBody(product: Product, scroll: ScrollState, addToCartClick: (Product)
 
         DashboardBannerShipment()
 
-        PrimaryButton<Product>(
-            onClick = { addToCartClick(product) },
-            modifier = Modifier
-                .clip(RoundedCornerShape(4.dp))
-                .padding(PaddingNormal)
-                .align(Alignment.End),
-            value = product,
-            text = stringResource(R.string.txt_add_to_cart)
-        )
+        AnimatedBuyButton(product = product, addToCartClick = addToCartClick)
 
         // This is to add the collapsing effect of the body
         Spacer(Modifier.height(MaxToolbarHeight * 2))
+    }
+}
+
+@Composable
+fun AnimatedBuyButton(product: Product, addToCartClick: (Product) -> Unit) {
+
+    var isRound by remember {
+        mutableStateOf(false)
+    }
+    val transition = updateTransition(targetState = isRound, label = "transition")
+
+    val background by transition.animateColor(
+        transitionSpec = { tween(durationMillis = 500) },
+        label = "color"
+    ) { isRound ->
+        if (isRound) Color.Green else RichBlack
+    }
+
+    PrimaryButton<Product>(
+        onClick = {
+            isRound = isRound.not()
+            addToCartClick(product)
+        },
+        modifier = Modifier
+            .padding(PaddingNormal)
+            .clip(RoundedCornerShape(8.dp)),
+        value = product,
+        text = "Buy",
+        backgroundColor = background
+    )
+}
+
+@Composable
+fun AnimatedBox(
+    modifier: Modifier,
+    isVisible: Boolean,
+    background: Color,
+    product: Product,
+    onSuccess: (product: Product) -> Unit
+) {
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+    val screenHeight = configuration.screenHeightDp
+    val transition = updateTransition(targetState = isVisible, label = "transition")
+
+    val xAxisAnimation by transition.animateDp(transitionSpec = {
+        tween(
+            delayMillis = 700,
+            durationMillis = 500
+        )
+    }, label = "x") { isVisible ->
+        if (isVisible)
+            screenWidth.dp
+        else 100.dp
+    }
+
+    val yAxisAnimation by transition.animateDp(transitionSpec = {
+        // spring(dampingRatio = Spring.DampingRatioLowBouncy, stiffness = Spring.StiffnessMediumLow)
+        tween(
+            delayMillis = 700,
+            durationMillis = 500
+        )
+    }, label = "x") { isVisible ->
+        if (isVisible)
+            screenHeight.dp
+        else 170.dp
+    }
+
+    val borderAnimation by animateIntAsState(
+        targetValue = if (isVisible) 50 else 0,
+        animationSpec = tween(durationMillis = 800, delayMillis = 500)
+    )
+
+    val bigBorderAnimation by animateIntAsState(
+        targetValue = if (isVisible) 0 else 50,
+        animationSpec = tween(durationMillis = 800, delayMillis = 500),
+        finishedListener = {
+            onSuccess(product)
+        }
+    )
+
+    AnimatedVisibility(visible = isVisible) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Column(
+                modifier = modifier
+                    .clip(shape = RoundedCornerShape(bigBorderAnimation))
+                    .width(xAxisAnimation)
+                    .height(yAxisAnimation)
+                    .background(background)
+                    .align(Alignment.Center),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                AnimatedVisibility(
+                    visible = isVisible,
+                    enter = fadeIn(animationSpec = tween(delayMillis = 500)) + expandIn()
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Box(
+                            modifier = Modifier
+                                .border(
+                                    width = 1.dp,
+                                    color = Color.White,
+                                    shape = RoundedCornerShape(borderAnimation)
+                                )
+                                .size(80.dp)
+                        ) {}
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = "Navigate Back",
+                            tint = Color.White,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                }
+                Text(
+                    text = "Success",
+                    style = MaterialTheme.typography.subtitle1,
+                    color = Color.White,
+                    modifier = modifier.padding(top = PaddingNormal)
+                )
+            }
+        }
     }
 }
 
@@ -309,4 +460,20 @@ fun productDetailPreview() {
     val scroll: ScrollState = rememberScrollState(0)
 
     ProductBody(product = product, scroll) {}
+}
+
+@Preview
+@Composable
+fun collapsingToolbarPreview() {
+    val product = Product(
+        description = "Description",
+        id = 1,
+        name = "Chair",
+        price = "40",
+        imageUrl = "",
+        isRestored = false
+    )
+    val scroll: ScrollState = rememberScrollState(0)
+
+    CollapsingToolbar(product = product, "") {}
 }
