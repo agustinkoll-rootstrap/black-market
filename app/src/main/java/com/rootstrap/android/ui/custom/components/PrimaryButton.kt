@@ -19,12 +19,14 @@ fun <T> PrimaryButton(
     value: T? = null,
     text: String,
     onClick: (T?) -> Unit,
-    backgroundColor: Color = RichBlack
+    backgroundColor: Color = RichBlack,
+    enabled:Boolean = true,
 ) {
     Button(
         onClick = { onClick(value) },
         modifier = modifier.clip(RoundedCornerShape(PaddingHalf)),
-        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor)
+        colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
+        enabled = enabled
     ) {
         Text(
             text = text,
