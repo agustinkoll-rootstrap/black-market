@@ -1,9 +1,18 @@
 package com.rootstrap.android.ui.login
 
+import androidx.lifecycle.viewModelScope
 import com.rootstrap.android.ui.base.BaseViewModel
 import com.rootstrap.android.ui.base.UiState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
-class LoginViewModel : BaseViewModel<LoginUiState>(LoginUiState(email = "", password = "", isLoginEnabled = false)) {
+class LoginViewModel :
+    BaseViewModel<LoginUiState>(LoginUiState(email = "", password = "", isLoginEnabled = false)) {
+
+    private val _navigationEventFlow = MutableSharedFlow<LoginNavigationEvent>()
+    val navigationEventFlow = _navigationEventFlow.asSharedFlow()
 
     fun onEmailChanged(email: String) {
         setUiState {
@@ -16,12 +25,28 @@ class LoginViewModel : BaseViewModel<LoginUiState>(LoginUiState(email = "", pass
 
     fun onPasswordChanged(password: String) {
         setUiState {
-            uiState.copy(password = password, isLoginEnabled  = isLoginEnabled())
+            uiState.copy(
+                password = password,
+                isLoginEnabled = isLoginEnabled()
+            )
         }
     }
 
-    private fun isLoginEnabled() =
-       uiState.email.isNotEmpty() && uiState.password.isNotEmpty()
+    fun onLoginClick() {
+        setUiState {
+            uiState.copy(isLoading = true, isLoginEnabled = isLoginEnabled(true))
+        }
+        viewModelScope.launch {
+            delay(3000)
+            _navigationEventFlow.emit(LoginNavigationEvent.Dashboard)
+            setUiState {
+                uiState.copy(isLoading = false)
+            }
+        }
+    }
+
+    private fun isLoginEnabled(isLoading: Boolean = false) =
+        uiState.email.isNotEmpty() && uiState.password.isNotEmpty() && isLoading.not()
 }
 
 data class LoginUiState(
@@ -29,4 +54,10 @@ data class LoginUiState(
     val email: String,
     val password: String,
     val isLoginEnabled: Boolean,
+    val isLoading: Boolean = false,
 ) : UiState
+
+sealed class LoginNavigationEvent {
+    object Dashboard : LoginNavigationEvent()
+    object None : LoginNavigationEvent()
+}

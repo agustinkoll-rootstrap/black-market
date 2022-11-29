@@ -2,28 +2,14 @@ package com.rootstrap.android.ui.login
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconToggleButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,20 +23,37 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.rootstrap.android.R
+import com.rootstrap.android.ui.compose_navigation.NavigationCallbacks.navigateToDashboard
 import com.rootstrap.android.ui.custom.components.PrimaryButton
 import com.rootstrap.android.ui.ui.theme.PaddingNormal
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @Composable
-fun LoginPage() {
+fun LoginPage(navController: NavHostController) {
     val context = LocalContext.current as ComponentActivity
     val loginViewModel: LoginViewModel =
         context.getViewModel<LoginViewModel>()
     val uiState: LoginUiState by loginViewModel.uiStateFlow.collectAsState()
-    LoginPage(uiState,
+    val navigationEvent: LoginNavigationEvent by loginViewModel.navigationEventFlow.collectAsState(
+        initial = LoginNavigationEvent.None
+    )
+    LaunchedEffect(key1 = navigationEvent) {
+        when (navigationEvent) {
+            is LoginNavigationEvent.Dashboard -> {
+                navigateToDashboard(navController)
+            }
+            else -> {}
+        }
+    }
+
+    LoginPage(
+        uiState,
         { query -> loginViewModel.onEmailChanged(query) },
-        { query -> loginViewModel.onPasswordChanged(query) })
+        { query -> loginViewModel.onPasswordChanged(query) },
+        { loginViewModel.onLoginClick() }
+    )
 }
 
 @Composable
@@ -58,14 +61,30 @@ fun LoginPage(
     uiState: LoginUiState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
+    onLoginClick: () -> Unit,
 ) {
 
-    Column(modifier = Modifier.fillMaxSize().background(Color.LightGray)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.LightGray)
+    ) {
         LoginBody(
             uiState,
             onEmailChanged,
-            onPasswordChanged
+            onPasswordChanged,
+            onLoginClick
         )
+        if (uiState.isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = .4f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
     }
 }
 
@@ -74,6 +93,7 @@ fun LoginBody(
     uiState: LoginUiState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
+    onLoginClick: () -> Unit,
 ) {
     val isPasswordVisible = remember {
         mutableStateOf(false)
@@ -114,7 +134,7 @@ fun LoginBody(
             value = uiState.email,
             onValueChange = { onEmailChanged(it) },
             keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Done,
+                imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Text
             ),
             label = { Text(text = "Email") },
@@ -131,7 +151,7 @@ fun LoginBody(
                 imeAction = ImeAction.Done,
                 keyboardType = KeyboardType.Text
             ),
-            label = { Text(text = "password") },
+            label = { Text(text = "Password") },
             trailingIcon = {
                 IconToggleButton(checked = isPasswordVisible.value, onCheckedChange = {
                     isPasswordVisible.value = isPasswordVisible.value.not()
@@ -151,7 +171,7 @@ fun LoginBody(
         )
 
         PrimaryButton<String>(
-            onClick = { },
+            onClick = { onLoginClick() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(84.dp)
@@ -166,5 +186,5 @@ fun LoginBody(
 @Preview
 @Composable
 fun LoginPagePreview() {
-    LoginPage( LoginUiState(isLoginEnabled = true, email = "", password = ""),{},{})
+    LoginPage(LoginUiState(isLoginEnabled = true, email = "", password = ""), {}, {}, {})
 }

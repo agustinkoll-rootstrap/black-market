@@ -39,7 +39,7 @@ fun NavigationHost(navHostController: NavHostController, topBarVisibility: Mutab
         }
         composable(NavigationRoutes.LoginPage.route){
             topBarVisibility.value = false
-            LoginPage()
+            LoginPage(navHostController)
         }
         composable(
             route = NavigationRoutes.ProductDetail.route,
