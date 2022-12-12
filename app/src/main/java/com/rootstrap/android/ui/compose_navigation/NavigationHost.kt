@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.rootstrap.android.ui.dashboard.Dashboard
 import com.rootstrap.android.ui.favourite.Favourite
+import com.rootstrap.android.ui.login.LoginPage
+import com.rootstrap.android.ui.login.LoginSuccessPage
 import com.rootstrap.android.ui.product_detail.ProductDetail
 import com.rootstrap.android.ui.products_list.ProductsList
 import com.rootstrap.android.ui.shopping_cart.ShoppingCart
@@ -18,7 +20,7 @@ import com.rootstrap.android.ui.success.SuccessPage
 fun NavigationHost(navHostController: NavHostController, topBarVisibility: MutableState<Boolean>) {
     NavHost(
         navController = navHostController,
-        startDestination = NavigationRoutes.Dashboard.route
+        startDestination = NavigationRoutes.LoginPage.route
     ) {
         composable(NavigationRoutes.ProductsList.route) {
             topBarVisibility.value = true
@@ -36,6 +38,10 @@ fun NavigationHost(navHostController: NavHostController, topBarVisibility: Mutab
             topBarVisibility.value = true
             ShoppingCart()
         }
+        composable(NavigationRoutes.LoginPage.route){
+            topBarVisibility.value = false
+            LoginPage(navHostController)
+        }
         composable(
             route = NavigationRoutes.ProductDetail.route,
             arguments = listOf(navArgument("productId") { type = NavType.IntType })
@@ -50,5 +56,10 @@ fun NavigationHost(navHostController: NavHostController, topBarVisibility: Mutab
             topBarVisibility.value = true
             SuccessPage(navBackStackEntry.arguments?.getInt("productId") ?: -1)
         }
+        /*composable(
+            route = NavigationRoutes.LoginSuccess.route
+        ){
+            LoginSuccessPage()
+        }*/
     }
 }

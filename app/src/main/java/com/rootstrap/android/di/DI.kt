@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.rootstrap.android.BuildConfig
 import com.rootstrap.android.ui.dashboard.DashboardViewModel
+import com.rootstrap.android.ui.login.LoginViewModel
 import com.rootstrap.android.ui.product_detail.ProductDetailViewModel
 import com.rootstrap.android.ui.products_list.ProductListViewModel
 import com.rootstrap.android.ui.shopping_cart.ShoppingCartViewModel
@@ -60,6 +61,7 @@ val appModule = module {
     viewModel { DashboardViewModel(get()) }
     viewModel { ShoppingCartViewModel(get()) }
     viewModel { ProductDetailViewModel() }
+    viewModel { LoginViewModel() }
 }
 
 val dataModule = module {
