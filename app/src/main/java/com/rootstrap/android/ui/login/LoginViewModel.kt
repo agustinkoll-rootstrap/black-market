@@ -38,10 +38,16 @@ class LoginViewModel :
         }
         viewModelScope.launch {
             delay(3000)
-            _navigationEventFlow.emit(LoginNavigationEvent.Dashboard)
+           //
             setUiState {
-                uiState.copy(isLoading = false)
+                uiState.copy(isLoading = false, animateSuccess = true)
             }
+        }
+    }
+
+    fun onLoginSuccessAnimationFinished(){
+        viewModelScope.launch {
+            _navigationEventFlow.emit(LoginNavigationEvent.Dashboard)
         }
     }
 
@@ -55,6 +61,7 @@ data class LoginUiState(
     val password: String,
     val isLoginEnabled: Boolean,
     val isLoading: Boolean = false,
+    val animateSuccess:Boolean = false,
 ) : UiState
 
 sealed class LoginNavigationEvent {

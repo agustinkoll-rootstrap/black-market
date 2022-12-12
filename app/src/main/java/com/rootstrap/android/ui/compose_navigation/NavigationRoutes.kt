@@ -28,4 +28,5 @@ sealed class NavigationRoutes(
         fun getProductIdRoute(productId: Int) = "success/$productId"
     }
     object LoginPage: NavigationRoutes(route = "login")
+    object LoginSuccess: NavigationRoutes(route = "loginSuccess")
 }

@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.rootstrap.android.ui.dashboard.Dashboard
 import com.rootstrap.android.ui.favourite.Favourite
 import com.rootstrap.android.ui.login.LoginPage
+import com.rootstrap.android.ui.login.LoginSuccessPage
 import com.rootstrap.android.ui.product_detail.ProductDetail
 import com.rootstrap.android.ui.products_list.ProductsList
 import com.rootstrap.android.ui.shopping_cart.ShoppingCart
@@ -55,5 +56,10 @@ fun NavigationHost(navHostController: NavHostController, topBarVisibility: Mutab
             topBarVisibility.value = true
             SuccessPage(navBackStackEntry.arguments?.getInt("productId") ?: -1)
         }
+        /*composable(
+            route = NavigationRoutes.LoginSuccess.route
+        ){
+            LoginSuccessPage()
+        }*/
     }
 }

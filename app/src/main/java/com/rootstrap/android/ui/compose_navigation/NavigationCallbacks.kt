@@ -21,4 +21,8 @@ object NavigationCallbacks {
         navController.popBackStack()
         navController.navigate(NavigationRoutes.Dashboard.route)
     }
+
+    fun navigateToLoginSuccess(navController: NavHostController){
+        navController.navigate(NavigationRoutes.LoginSuccess.route)
+    }
 }
