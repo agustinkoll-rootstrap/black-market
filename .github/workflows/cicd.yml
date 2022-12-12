@@ -31,11 +31,8 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Run Ktlint
-        run: ./gradlew ktlintStagingDebugCheck
-
-      - name: Run Unit Tests
-        run: ./gradlew testStagingDebugUnitTest
+      - name: Run Linters and Test
+        run: ./gradlew check
 
       - name: Upload Reports
         uses: actions/upload-artifact@v2
