@@ -31,9 +31,6 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Run Linters and Test
-        run: ./gradlew check
-
       - name: Upload Reports
         uses: actions/upload-artifact@v2
         with:
